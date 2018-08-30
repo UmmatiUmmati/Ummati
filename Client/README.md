@@ -1,4 +1,4 @@
-# Ummati
+# foo
 
 ## Project setup
 ```
