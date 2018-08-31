@@ -13,5 +13,21 @@ module.exports = {
   testMatch: [
     "**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)"
   ],
-  testURL: "http://localhost/"
+  testURL: "http://localhost/",
+  collectCoverageFrom: [
+    "src/**/*.{vue}",
+    "src/**/*.{ts}",
+    "!src/**/I[A-Z]*.{ts}",
+    "!**/*.d.ts",
+    "!**/node_modules/**"
+  ],
+  coverageDirectory: "bin/jest",
+  coverageThreshold: {
+    global: {
+      branches: 0,
+      functions: 0,
+      lines: 0,
+      statements: 0
+    }
+  }
 };
