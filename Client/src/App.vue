@@ -4,9 +4,22 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <RouteTransition>
+      <router-view/>
+    </RouteTransition>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+import { RouteTransition } from "@/components";
+
+export default Vue.extend({
+  components: {
+    RouteTransition
+  }
+});
+</script>
 
 <style lang="scss">
 #app {
