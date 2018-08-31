@@ -31,13 +31,7 @@ module.exports = {
       importsDirectory: "js/sw",
 
       // Static caching
-      exclude: [
-        /\.map$/,
-        /\.txt$/,
-        /\.xml$/,
-        /\.ico$/,
-        /manifest\.json$/
-      ],
+      exclude: [/\.map$/, /\.txt$/, /\.xml$/, /\.ico$/, /manifest\.json$/]
 
       // Runtime caching
       // runtimeCaching: [
@@ -73,4 +67,4 @@ module.exports = {
       // ]
     }
   }
-}
+};
