@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <Navigation/>
     <RouteTransition>
       <router-view/>
     </RouteTransition>
@@ -12,10 +9,11 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { RouteTransition } from "@/components";
+import { Navigation, RouteTransition } from "@/components";
 
 export default Vue.extend({
   components: {
+    Navigation,
     RouteTransition
   }
 });
@@ -28,15 +26,5 @@ export default Vue.extend({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
