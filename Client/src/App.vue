@@ -21,11 +21,7 @@ export default Vue.extend({
     RouteTransition
   },
   metaInfo: {
-    // title: 'My Example App',
-    titleTemplate: "%s - Ummati",
-    htmlAttrs: {
-      lang: "en"
-    }
+    titleTemplate: "%s - Ummati"
   }
 });
 </script>
