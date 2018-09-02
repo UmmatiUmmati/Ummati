@@ -1,20 +1,31 @@
 <template>
   <div id="app">
     <Navigation/>
-    <RouteTransition>
-      <router-view/>
-    </RouteTransition>
+    <main>
+      <RouteTransition>
+        <router-view/>
+      </RouteTransition>
+    </main>
+    <Footer/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Navigation, RouteTransition } from "@/components";
+import { Footer, Navigation, RouteTransition } from "@/components";
 
 export default Vue.extend({
   components: {
+    Footer,
     Navigation,
     RouteTransition
+  },
+  metaInfo: {
+    // title: 'My Example App',
+    titleTemplate: "%s - Ummati",
+    htmlAttrs: {
+      lang: "en"
+    }
   }
 });
 </script>
