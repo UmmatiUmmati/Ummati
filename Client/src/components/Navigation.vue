@@ -1,21 +1,28 @@
 <template>
-  <div id="nav">
-    <router-link :to="{name: 'home'}">Home</router-link> |
+  <nav>
+    <router-link :to="{name: 'home'}"><Logo/></router-link>
+    <router-link :to="{name: 'home'}">Home</router-link>
     <router-link :to="{name: 'about'}">About</router-link>
-  </div>
+  </nav>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { Logo } from "@/components";
 
 export default Vue.extend({
-  name: "Navigation"
+  name: "Navigation",
+  components: {
+    Logo
+  }
 });
 </script>
 
 <style lang="scss" scoped>
-#nav {
-  padding: 30px;
+nav {
+  background-color: lightblue;
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
   a {
     font-weight: bold;
     color: #2c3e50;
