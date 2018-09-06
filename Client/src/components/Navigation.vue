@@ -1,7 +1,8 @@
 <template>
   <nav>
-    <router-link :to="{name: 'home'}"><Logo/></router-link>
+    <!-- <router-link :to="{name: 'home'}"><Logo/></router-link> -->
     <router-link :to="{name: 'home'}">Home</router-link>
+    <router-link :to="{name: 'profile'}">Profile</router-link>
     <router-link :to="{name: 'about'}">About</router-link>
   </nav>
 </template>
@@ -20,7 +21,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 nav {
-  background-color: lightblue;
+  background-color: var(--global-primary-colour);
   display: grid;
   grid-template-columns: auto auto auto 1fr;
   a {

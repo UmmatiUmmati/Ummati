@@ -17,6 +17,15 @@ const routes: RouteConfig[] = [
     meta: {
       transition: "slide"
     }
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "./views/Profile.vue"),
+    meta: {
+      transition: "slide"
+    }
   }
 ];
 export default routes;

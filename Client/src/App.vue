@@ -27,11 +27,23 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-#app {
+html {
+  // Light Theme
+  background: var(--global-light-background-colour);
+  color: var(--global-light-text-colour);
+
   font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+}
+.dark-theme {
+  background: var(--global-dark-background-colour);
+  color: var(--global-dark-text-colour);
+}
+.high-contrast-theme {
+  background: var(--global-high-contrast-background-colour);
+  color: var(--global-high-contrast-text-colour);
+}
+.theme-transition {
+  transition: all 750ms !important;
+  transition-delay: 0 !important;
 }
 </style>

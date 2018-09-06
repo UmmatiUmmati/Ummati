@@ -2,11 +2,13 @@ import Vue from "vue";
 import Vuex, { ModuleTree, Store } from "vuex";
 import IRootState from "@/stores/IRootState";
 import mainModule from "@/stores/main/MainModule";
+import themeModule from "@/stores/theme/ThemeModule";
 
 Vue.use(Vuex);
 
 const modules: ModuleTree<IRootState> = {
-  main: mainModule
+  main: mainModule,
+  theme: themeModule
 };
 
 const store = new Store({

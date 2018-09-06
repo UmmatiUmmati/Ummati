@@ -1,0 +1,22 @@
+:root {
+  // Accent Colours
+  --global-primary-hue: 211;
+  --global-primary-colour: hsla(var(--global-primary-hue), 100%, 50%, 1);
+
+  // --hue: 210; /* Blue */
+  // --accent-hue: 25; /* Orange */
+  // --text-color-normal: hsl(var(--hue), 10%, 62%);
+  // --text-color-highlight: hsl(var(--accent-hue), 70%, 45%);
+
+  // Light Theme Colours
+  --global-light-background-colour: hsla(0, 100%, 100%, 1);
+  --global-light-text-colour: hsla(210, 11%, 15%, 1);
+
+  // Dark Theme Colours
+  --global-dark-background-colour: hsla(210, 10%, 23%, 1);
+  --global-dark-text-colour: hsla(0, 100%, 100%, 1);
+
+  // High Contrast Theme Colours
+  --global-high-contrast-background-colour: hsla(0, 0%, 0%, 1);
+  --global-high-contrast-text-colour: hsla(0, 100%, 100%, 1);
+}
