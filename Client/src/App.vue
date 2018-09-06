@@ -27,7 +27,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-body {
+html {
   background: var(--global-background-colour);
   color: var(--global-text-colour);
 
