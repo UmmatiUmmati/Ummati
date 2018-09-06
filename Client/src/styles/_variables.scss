@@ -1,22 +1,26 @@
 :root {
   // Accent Colours
-  --global-primary-hue: 211;
-  --global-primary-colour: hsla(var(--global-primary-hue), 100%, 50%, 1);
-
-  // --hue: 210; /* Blue */
-  // --accent-hue: 25; /* Orange */
-  // --text-color-normal: hsl(var(--hue), 10%, 62%);
-  // --text-color-highlight: hsl(var(--accent-hue), 70%, 45%);
+  --global-primary-colour-hue: 211;
+  --global-primary-colour-saturation: 100%;
+  --global-primary-colour-lightness: 50%;
+  --global-primary-colour-opacity: 1;
+  --global-primary-colour: hsla(
+    var(--global-primary-colour-hue),
+    var(--global-primary-colour-saturation),
+    var(--global-primary-colour-lightness),
+    var(--global-primary-colour-opacity));
 
   // Light Theme Colours
-  --global-light-background-colour: hsla(0, 100%, 100%, 1);
-  --global-light-text-colour: hsla(210, 11%, 15%, 1);
+  --global-background-colour: hsla(0, 100%, 100%, 1);
+  --global-text-colour: hsla(210, 11%, 15%, 1);
+}
 
-  // Dark Theme Colours
-  --global-dark-background-colour: hsla(210, 10%, 23%, 1);
-  --global-dark-text-colour: hsla(0, 100%, 100%, 1);
+.dark-theme {
+  --global-background-colour: hsla(210, 10%, 23%, 1);
+  --global-text-colour: hsla(0, 100%, 100%, 1);
+}
 
-  // High Contrast Theme Colours
-  --global-high-contrast-background-colour: hsla(0, 0%, 0%, 1);
-  --global-high-contrast-text-colour: hsla(0, 100%, 100%, 1);
+.high-contrast-theme {
+  --global-background-colour: hsla(0, 0%, 0%, 1);
+  --global-text-colour: hsla(0, 100%, 100%, 1);
 }

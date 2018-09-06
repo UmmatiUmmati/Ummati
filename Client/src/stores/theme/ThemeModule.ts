@@ -16,14 +16,15 @@ export const mutations: MutationTree<IThemeState> = {
   hue: (s, p: number) => {
     s.hue = p;
     if (document) {
-      document.documentElement.style.setProperty("--global-primary-hue", s.hue.toString());
+      document.body.style.setProperty("--global-primary-colour-hue", s.hue.toString());
+      document.body.style.setProperty("--global-primary-colour", "hsla(var(--global-primary-hue),var(--global-primary-saturation),var(--global-primary-lightness),var(--global-primary-colour-opacity))");
     }
   },
   theme: (s, p: Theme) =>
   {
     s.theme = p;
     if (document) {
-      const classList = document.documentElement.classList;
+      const classList = document.body.classList;
       if (s.theme === "light") {
         classList.remove("dark-theme");
         classList.remove("high-contrast-theme");
@@ -41,7 +42,7 @@ export const mutations: MutationTree<IThemeState> = {
 export const actions: ActionTree<IThemeState, IRootState> = {
   async transitionTheme() {
     if (document) {
-      const classList = document.documentElement.classList;
+      const classList = document.body.classList;
       classList.add("theme-transition");
       await Timer.delay(750);
       classList.remove("theme-transition");

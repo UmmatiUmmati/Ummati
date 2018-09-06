@@ -27,20 +27,19 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-html {
-  // Light Theme
-  background: var(--global-light-background-colour);
-  color: var(--global-light-text-colour);
+body {
+  background: var(--global-background-colour);
+  color: var(--global-text-colour);
 
   font-family: "Avenir", Helvetica, Arial, sans-serif;
 }
 .dark-theme {
-  background: var(--global-dark-background-colour);
-  color: var(--global-dark-text-colour);
+  background: var(--global-background-colour);
+  color: var(--global-text-colour);
 }
 .high-contrast-theme {
-  background: var(--global-high-contrast-background-colour);
-  color: var(--global-high-contrast-text-colour);
+  background: var(--global-background-colour);
+  color: var(--global-text-colour);
 }
 .theme-transition {
   transition: all 750ms !important;

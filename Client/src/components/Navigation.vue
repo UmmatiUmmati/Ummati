@@ -19,16 +19,17 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 nav {
   background-color: var(--global-primary-colour);
+  color: var(--global-text-colour);
   display: grid;
   grid-template-columns: auto auto auto 1fr;
   a {
+    color: var(--global-text-colour);
     font-weight: bold;
-    color: #2c3e50;
     &.router-link-exact-active {
-      color: #42b983;
+      // color: #42b983;
     }
   }
 }
