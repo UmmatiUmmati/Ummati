@@ -1,6 +1,28 @@
+const CompressionWebpackPlugin = require("compression-webpack-plugin");
+const zopfli = require("@gfx/zopfli");
+
+const compressionTest = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
+
 module.exports = {
   configureWebpack: {
-    devtool: "source-map"
+    devtool: "source-map",
+    plugins: [
+      new CompressionWebpackPlugin({
+        minRatio: 0.99,
+        test: compressionTest
+      }),
+      new CompressionWebpackPlugin({
+        algorithm(input, compressionOptions, callback) {
+          return zopfli.gzip(input, compressionOptions, callback);
+        },
+        compressionOptions: {
+          numiterations: 15
+        },
+        filename: "[path].br[query]",
+        minRatio: 0.99,
+        test: compressionTest
+      })
+    ]
   },
 
   css: {
