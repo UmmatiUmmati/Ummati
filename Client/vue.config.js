@@ -1,28 +1,32 @@
-const CompressionWebpackPlugin = require("compression-webpack-plugin");
+const BrotliPlugin = require("brotli-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 const zopfli = require("@gfx/zopfli");
 
-const compressionTest = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
+let plugins = [];
+if (process.env.NODE_ENV === "production") {
+  const compressionTest = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
+  plugins = [
+    new CompressionPlugin({
+      algorithm(input, compressionOptions, callback) {
+        return zopfli.gzip(input, compressionOptions, callback);
+      },
+      compressionOptions: {
+        numiterations: 15
+      },
+      minRatio: 0.99,
+      test: compressionTest
+    }),
+    new BrotliPlugin({
+      test: compressionTest,
+      minRatio: 0.99
+    })
+  ];
+}
 
 module.exports = {
   configureWebpack: {
     devtool: "source-map",
-    plugins: [
-      new CompressionWebpackPlugin({
-        minRatio: 0.99,
-        test: compressionTest
-      }),
-      new CompressionWebpackPlugin({
-        algorithm(input, compressionOptions, callback) {
-          return zopfli.gzip(input, compressionOptions, callback);
-        },
-        compressionOptions: {
-          numiterations: 15
-        },
-        filename: "[path].br[query]",
-        minRatio: 0.99,
-        test: compressionTest
-      })
-    ]
+    plugins
   },
 
   css: {
