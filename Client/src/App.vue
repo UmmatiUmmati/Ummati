@@ -12,18 +12,14 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {
-  Footer,
-  Navigation,
-  OnlineStatus,
-  RouteTransition
-} from "@/components";
+import Footer from "@/components/Footer.vue";
+import Navigation from "@/components/Navigation.vue";
+import RouteTransition from "@/components/RouteTransition.vue";
 
 export default Vue.extend({
   components: {
     Footer,
     Navigation,
-    OnlineStatus,
     RouteTransition
   },
   metaInfo: {

@@ -19,6 +19,15 @@ const routes: RouteConfig[] = [
     }
   },
   {
+    path: "/search",
+    name: "search",
+    component: () =>
+      import(/* webpackChunkName: "search" */ "./views/Search.vue"),
+    meta: {
+      transition: "slide"
+    }
+  },
+  {
     path: "/profile",
     name: "profile",
     component: () =>
