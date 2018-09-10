@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <input id="light-theme-radio" v-model="themeInternal" type="radio" value="light">
     <label for="light-theme-radio">Light</label>
 
@@ -11,7 +11,7 @@
 
     <label for="hue-range">Colour</label>
     <input id="hue-range" v-model="hueInternal" type="range" min="0" max="360">
-  </div>
+  </main>
 </template>
 
 <script lang="ts">

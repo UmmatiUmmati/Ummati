@@ -1,23 +1,29 @@
 <template>
   <div id="app">
-    <Navigation/>
-    <main>
-      <RouteTransition>
-        <router-view/>
-      </RouteTransition>
-    </main>
+    <header>
+      <Navigation/>
+    </header>
+    <RouteTransition>
+      <router-view/>
+    </RouteTransition>
     <Footer/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Footer, Navigation, RouteTransition } from "@/components";
+import {
+  Footer,
+  Navigation,
+  OnlineStatus,
+  RouteTransition
+} from "@/components";
 
 export default Vue.extend({
   components: {
     Footer,
     Navigation,
+    OnlineStatus,
     RouteTransition
   },
   metaInfo: {

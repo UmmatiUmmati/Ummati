@@ -11,13 +11,13 @@ import Vue from "vue";
 const networkEvents = ["online", "offline"];
 function getOnlineStatus() {
   if (navigator) {
-    return navigator.onLine || false
+    return navigator.onLine || false;
   }
   return true;
 }
 
 export default Vue.extend({
-  name: 'OnlineStatus',
+  name: "OnlineStatus",
   data() {
     return {
       isOnline: getOnlineStatus()
@@ -36,7 +36,7 @@ export default Vue.extend({
   methods: {
     updateStatus() {
       this.isOnline = getOnlineStatus();
-      this.$emit('input', this.isOnline);
+      this.$emit("change", this.isOnline);
     }
   }
 });
