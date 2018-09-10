@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { ClockService } from "@/services";
+import ClockService from "@/services/ClockService";
 
 export default Vue.extend({
   name: "Footer",

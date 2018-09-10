@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Uid } from "@/framework";
+import Uid from "@/framework/Uid";
 
 export type Size =
   | "xs"

@@ -1,5 +1,5 @@
 import { ActionTree, GetterTree, Module, MutationTree } from "vuex";
-import { Timer } from "@/framework";
+import Timer from "@/framework/Timer";
 import IRootState from "@/stores/IRootState";
 import IThemeState, { Theme } from "@/stores/theme/IThemeState";
 
