@@ -1,1 +1,3 @@
-export default interface IMainState {}
+export default interface IMainState {
+  isProfileFlyoutOpen: boolean;
+}

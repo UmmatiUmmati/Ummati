@@ -2,14 +2,16 @@ import { ActionTree, GetterTree, Module, MutationTree } from "vuex";
 import IRootState from "@/stores/IRootState";
 import IMainState from "@/stores/main/IMainState";
 
-export const state: IMainState = {};
+export const state: IMainState = {
+  isProfileFlyoutOpen: false
+};
 
 export const getters: GetterTree<IMainState, IRootState> = {
   // getFoo: s => (foo: number) => s.foo,
 };
 
 export const mutations: MutationTree<IMainState> = {
-  // foo: (s, p: string) => (s.foo = p),
+  setIsProfileFlyoutOpen: (s, p: boolean) => (s.isProfileFlyoutOpen = p)
 };
 
 export const actions: ActionTree<IMainState, IRootState> = {

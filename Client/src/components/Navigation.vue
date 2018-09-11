@@ -1,43 +1,70 @@
 <template>
-  <nav>
+  <nav class="navigation">
+
+    <div>L</div>
     <!-- <router-link :to="{name: 'home'}"><Logo/></router-link> -->
-    <router-link :to="{name: 'home'}">Home</router-link>
-    <router-link :to="{name: 'search'}">
-      <Icon size="2x" title="Search"><Search/></Icon>
+
+    <router-link :to="{name: 'home'}">
+      <Icon size="2x" title="Home">
+        <HomeIcon/>
+      </Icon>
     </router-link>
-    <router-link :to="{name: 'profile'}">Profile</router-link>
-    <router-link :to="{name: 'about'}">About</router-link>
+
+    <router-link :to="{name: 'search'}">
+      <Icon size="2x" title="Search">
+        <SearchIcon/>
+      </Icon>
+    </router-link>
+
+    <router-link :to="{name: 'notifications'}">
+      <Icon size="2x" title="Notifications">
+        <NotificationIcon/>
+      </Icon>
+    </router-link>
+
+    <div @click="onProfileClick">Profile</div>
+
   </nav>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { createNamespacedHelpers } from "vuex";
 import Icon from "@/components/icons/Icon.vue";
+import HomeIcon from "@/components/icons/HomeIcon.vue";
+import NotificationIcon from "@/components/icons/NotificationIcon.vue";
+import SearchIcon from "@/components/icons/SearchIcon.vue";
 import Logo from "@/components/Logo.vue";
-import Search from "@/components/icons/Search.vue";
+
+const { mapMutations, mapState } = createNamespacedHelpers("main");
 
 export default Vue.extend({
   name: "Navigation",
   components: {
+    HomeIcon,
     Icon,
     Logo,
-    Search
+    NotificationIcon,
+    SearchIcon
+  },
+  computed: mapState({}),
+  methods: {
+    ...mapMutations(["setIsProfileFlyoutOpen"]),
+    onProfileClick() {
+      this.setIsProfileFlyoutOpen(!this.isProfileFlyoutOpen);
+    }
   }
 });
 </script>
 
 <style lang="scss">
-nav {
-  // background-color: var(--global-primary-colour);
-  // color: var(--global-text-colour);
+nav.navigation {
   display: grid;
-  grid-template-columns: auto auto auto 1fr;
-  a {
-    // color: var(--global-text-colour);
-    // font-weight: bold;
-    &.router-link-exact-active {
-      // color: #42b983;
-    }
-  }
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+  // a {
+  //   &.router-link-exact-active {
+  //   }
+  // }
 }
 </style>
