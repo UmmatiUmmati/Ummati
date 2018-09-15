@@ -1,25 +1,26 @@
 <template>
   <nav class="navigation">
 
-    <div>L</div>
-    <!-- <router-link :to="{name: 'home'}"><Logo/></router-link> -->
+    <router-link :to="{name: 'home'}" class="navigation-logo">
+      <Logo/>
+    </router-link>
 
-    <router-link :to="{name: 'home'}">
+    <router-link :to="{name: 'home'}" class="navigation-link">
       <Icon size="2x" title="Home">
         <HomeIcon/>
-      </Icon>
+      </Icon> Home
     </router-link>
 
-    <router-link :to="{name: 'search'}">
-      <Icon size="2x" title="Search">
-        <SearchIcon/>
-      </Icon>
-    </router-link>
-
-    <router-link :to="{name: 'notifications'}">
+    <router-link :to="{name: 'notifications'}" class="navigation-link">
       <Icon size="2x" title="Notifications">
         <NotificationIcon/>
-      </Icon>
+      </Icon> Notifications
+    </router-link>
+
+    <router-link :to="{name: 'search'}" class="navigation-link">
+      <Icon size="2x" title="Search">
+        <SearchIcon/>
+      </Icon> Search
     </router-link>
 
     <div @click="onProfileClick">Profile</div>
@@ -58,13 +59,37 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-nav.navigation {
+.navigation {
+  --navigation-colour: var(--global-primary-colour);
+
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  color: var(--navigation-colour);
+  grid-template-columns: auto 1fr 1fr 1fr 1fr;
 
   // a {
   //   &.router-link-exact-active {
   //   }
   // }
+}
+.navigation-logo {
+  height: 4rem;
+  padding: 1rem;
+  width: 4rem;
+}
+.navigation-link {
+  color: var(--navigation-colour);
+  display: grid;
+  fill: var(--navigation-colour);
+  grid-gap: 0.5rem;
+  grid-template-columns: auto auto;
+  padding: 1rem;
+
+  &.router-link-exact-active {
+    border-bottom: 1px solid var(--navigation-colour);
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 </style>
