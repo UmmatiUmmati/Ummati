@@ -45,11 +45,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+@import "@/styles/site.scss";
+
 html {
   background: var(--global-background-colour);
   color: var(--global-text-colour);
-
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
 }
 .dark-theme {
   background: var(--global-background-colour);

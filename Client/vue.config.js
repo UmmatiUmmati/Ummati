@@ -30,11 +30,6 @@ module.exports = {
   },
 
   css: {
-    loaderOptions: {
-      sass: {
-        data: `@import "@/styles/site.scss";`
-      }
-    },
     sourceMap: true
   },
 
