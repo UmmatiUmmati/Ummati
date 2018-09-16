@@ -1,5 +1,5 @@
 <template>
-  <nav class="navigation">
+  <nav class="navigation" aria-label="site">
 
     <NavigationLogo/>
 
