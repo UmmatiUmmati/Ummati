@@ -3,18 +3,14 @@
     <title>Ummati logo</title>
     <desc>Ummati logo</desc>
     <symbol id="square" viewBox="0 0 11 11">
-      <path
-        id="ummati"
-        d="M10.5 0 v0 11 M6.5 10 v0 -3.5 h2 0 v0 4 h-6 0 v0 -2 h2.5 0 M2 10.5 h-1.5 0 v-6 0 h8 0 v0 -2 h-8 0 v0 -2 h8.5 0"
-        fill="none"
-        stroke="#04a5f0"
-        stroke-width="1"/>
-      <path
-        id="diacritics"
-        d=" M4.5 6 v1 0 M2.5 6 v1 0"
-        fill="none"
-        stroke="#f35225"
-        stroke-width="1"/>
+      <g class="ummati" fill="#04a5f0">
+        <polygon points="9,1 9,1 1,1 1,2 9,2 9,5 1,5 1,10 2,10 2,8 5,8 5,9 3,9 3,10 8,10 8,7 7,7 7,10 6,10 6,6 9,6 9,11 0,11 0,4 8,4 8,3 0,3 0,0 9,0"/>
+        <rect x="10" y="0" width="1" height="11"/>
+      </g>
+      <g class="diacritics" fill="#f35225">
+        <rect x="2" y="6" width="1" height="1"/>
+        <rect x="4" y="6" width="1" height="1"/>
+      </g>
     </symbol>
 
     <symbol id="typography" viewBox="0 0 144 16">

@@ -25,8 +25,9 @@ import Vue from "vue";
 import { createNamespacedHelpers } from "vuex";
 import Flyout from "@/components/Flyout.vue";
 import Footer from "@/components/Footer.vue";
-import Navigation from "@/components/Navigation.vue";
+import Navigation from "@/components/navigation/Navigation.vue";
 import RouteTransition from "@/components/RouteTransition.vue";
+import IMainState from "@/stores/main/IMainState.ts";
 
 const { mapState } = createNamespacedHelpers("main");
 
@@ -40,7 +41,11 @@ export default Vue.extend({
   metaInfo: {
     titleTemplate: "%s - Ummati"
   },
-  computed: mapState({})
+  computed: {
+    ...mapState({
+      isProfileFlyoutOpen: (state: IMainState) => state.isProfileFlyoutOpen
+    })
+  }
 });
 </script>
 
