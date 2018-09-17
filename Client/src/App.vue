@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Flyout :value="isProfileFlyoutOpen">
-      <template slot="sidebar">
+    <Slideout :value="isProfileFlyoutOpen" side="right">
+      <template slot="menu">
         <aside>
           <h1>Profile</h1>
           This is to show profile information.
@@ -16,7 +16,7 @@
         </RouteTransition>
         <Footer/>
       </div>
-    </Flyout>
+    </Slideout>
   </div>
 </template>
 
@@ -27,6 +27,7 @@ import Flyout from "@/components/Flyout.vue";
 import Footer from "@/components/Footer.vue";
 import Navigation from "@/components/navigation/Navigation.vue";
 import RouteTransition from "@/components/RouteTransition.vue";
+import Slideout from "@/components/Slideout.vue";
 import IMainState from "@/stores/main/IMainState.ts";
 
 const { mapState } = createNamespacedHelpers("main");
@@ -36,7 +37,8 @@ export default Vue.extend({
     Flyout,
     Footer,
     Navigation,
-    RouteTransition
+    RouteTransition,
+    Slideout
   },
   metaInfo: {
     titleTemplate: "%s - Ummati"

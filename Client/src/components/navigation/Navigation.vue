@@ -1,11 +1,11 @@
 <template>
   <nav class="navigation" aria-label="site">
 
-    <NavigationLogo/>
+    <!-- <NavigationLogo/> -->
 
-    <NavigationLink :to="{name: 'home'}" icon="home" title="Home"/>
+    <!-- <NavigationLink :to="{name: 'home'}" icon="home" title="Home"/>
     <NavigationLink :to="{name: 'notifications'}" icon="notification" title="Notifications"/>
-    <NavigationLink :to="{name: 'search'}" icon="search" title="Search"/>
+    <NavigationLink :to="{name: 'search'}" icon="search" title="Search"/> -->
 
     <NavigationProfileLink class="profile"/>
 

@@ -1,5 +1,19 @@
 <template>
-  <main>Home</main>
+  <main>
+    <h1>main</h1>
+    <p>Hello World</p>
+    <p>Hello World</p>
+    <p>Hello World</p>
+    <p>Hello World</p>
+    <p>Hello World</p>
+    <p>Hello World</p>
+    <p>Hello World</p>
+    <p>Hello World</p>
+    <p>Hello World</p>
+    <p>Hello World</p>
+    <p>Hello World</p>
+    <p>Hello World</p>
+  </main>
 </template>
 
 <script lang="ts">
