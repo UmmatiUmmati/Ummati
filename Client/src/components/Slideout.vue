@@ -24,31 +24,25 @@ export default Vue.extend({
       default: 300,
       type: Number
     },
-    padding: {
-      default: 256,
-      type: Number
-    },
     side: {
       default: "left",
-      type: String
+      type: String as () => "left" | "right"
     },
     tolerance: {
       default: 70,
       type: Number
     },
-    touch: {
-      default: true,
-      type: Boolean
-    },
     value: {
       default: false,
       type: Boolean
+    },
+    width: {
+      default: 256,
+      type: Number
     }
   },
   data() {
     return {
-      startOffsetX: 0,
-      currentOffsetX: 0,
       closing: false,
       opening: false,
       moved: false,
@@ -56,9 +50,11 @@ export default Vue.extend({
       preventOpen: false,
       scrolling: false,
       scrollTimeout: undefined as NodeJS.Timer | undefined,
+      onScrollInternal: (e: Event) => {},
+      startOffsetX: 0,
+      currentOffsetX: 0,
       transform: "",
-      translateTo: 0,
-      onScrollInternal: (e: Event) => {}
+      translateTo: 0
     };
   },
   computed: {
@@ -79,10 +75,10 @@ export default Vue.extend({
     }
   },
   created() {
-    this.translateTo = this.padding;
+    this.translateTo = this.width;
     this.translateTo *= this.orientation;
 
-    if (this.touch && document) {
+    if (document) {
       const self = this;
       this.onScrollInternal = this.decouple(document, "scroll", function() {
         // Decouple scroll event
@@ -140,8 +136,7 @@ export default Vue.extend({
       this.closing = false;
       this.opening = false;
       this.startOffsetX = event.touches[0].pageX;
-      this.preventOpen =
-        !this.touch || (!this.isOpen && this.menu.clientWidth !== 0);
+      this.preventOpen = !this.isOpen && this.menu.clientWidth !== 0;
     },
     onTouchCancel() {
       // Resets values on touchcancel
@@ -175,7 +170,7 @@ export default Vue.extend({
       var dif_x = event.touches[0].clientX - this.startOffsetX;
       var translateX = (this.currentOffsetX = dif_x);
 
-      if (Math.abs(translateX) > this.padding) {
+      if (Math.abs(translateX) > this.width) {
         return;
       }
 
@@ -196,7 +191,7 @@ export default Vue.extend({
         }
 
         if (oriented_dif_x <= 0) {
-          translateX = dif_x + this.padding * this.orientation;
+          translateX = dif_x + this.width * this.orientation;
           this.opening = false;
         }
 
