@@ -1,0 +1,24 @@
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  --heading-colour: var(--global-text-colour);
+  --heading-font-family: var(--global-font-family);
+  --heading-font-size-h1: var(--global-font-size-5);
+  --heading-font-size-h2: var(--global-font-size-4);
+  --heading-font-size-h3: var(--global-font-size-3);
+  --heading-font-size-h4: var(--global-font-size-2);
+  --heading-font-size-h5: var(--global-font-size-1);
+  --heading-font-size-h6: var(--global-font-size-0);
+  --heading-font-weight: var(--global-font-weight-semi-bold);
+  --heading-line-height: var(--global-line-height);
+
+  color: var(--heading-colour);
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  line-height: var(--heading-line-height);
+}
+
+.h1 { font-size: var(--heading-font-size-h1); }
+.h2 { font-size: var(--heading-font-size-h2); }
+.h3 { font-size: var(--heading-font-size-h3); }
+.h4 { font-size: var(--heading-font-size-h4); }
+.h5 { font-size: var(--heading-font-size-h5); }
+.h6 { font-size: var(--heading-font-size-h6); }

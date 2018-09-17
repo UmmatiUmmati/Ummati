@@ -13,14 +13,64 @@
   // Light Theme Colours
   --global-background-colour: hsla(0, 100%, 100%, 1);
   --global-text-colour: hsla(210, 11%, 15%, 1);
+  --global-text-colour-muted: hsla(208, 13%, 49%, 1);
+
+  // Spacers
+  --global-spacer-0: 0rem;
+  --global-spacer-1: 0.25rem;
+  --global-spacer-2: 0.5rem;
+  --global-spacer-3: 1rem;
+  --global-spacer-4: 1.5rem;
+  --global-spacer-5: 3rem;
+
+  // Breakpoints
+  --global-breakpoint-xs: 0;
+  --global-breakpoint-sm: 576px;
+  --global-breakpoint-md: 768px;
+  --global-breakpoint-lg: 992px;
+  --global-breakpoint-xl: 1200px;
+
+  // Border Radius
+  --global-border-radius: .3rem;
+
+  // Border Width
+  --global-border-width: 1px;
+
+  // Font Family
+  --global-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --global-font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  // Font Size
+  --global-font-size-0: 1.3125rem; // 21px
+  --global-font-size-1: calc(var(--global-font-size) * 1.25);
+  --global-font-size-2: calc(var(--global-font-size) * 1.5);
+  --global-font-size-3: calc(var(--global-font-size) * 1.75);
+  --global-font-size-4: calc(var(--global-font-size) * 2);
+  --global-font-size-5: calc(var(--global-font-size) * 2.5);
+
+  // Font Weight
+  --global-font-weight-light: 300;
+  --global-font-weight-normal: 400;
+  --global-font-weight-semi-bold: 600;
+  --global-font-weight-bold: 700;
+
+  // Line Height
+  --global-line-height: 1.58;
+
+  // Line Length
+  --global-line-length-min: 45;
+  --global-line-length-max: 75;
 }
 
 .dark-theme {
   --global-background-colour: hsla(210, 10%, 23%, 1);
   --global-text-colour: hsla(0, 100%, 100%, 1);
+  --global-text-colour-muted: hsla(0, 95%, 95%, 1);
 }
 
 .high-contrast-theme {
   --global-background-colour: hsla(0, 0%, 0%, 1);
   --global-text-colour: hsla(0, 100%, 100%, 1);
+  --global-text-colour-muted: hsla(0, 100%, 100%, 1);
+
 }
