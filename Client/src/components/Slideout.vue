@@ -1,10 +1,11 @@
 <template>
-  <div :class="{'slideout-open': isOpen, 'slideout-opening': opening, 'slideout-closing': closing}">
+  <div :class="{'slideout-opening': opening, 'slideout-closing': closing}">
     <div ref="menu" :class="'slideout-menu-' + side" class="slideout-menu">
       <slot name="menu"/>
     </div>
     <div :class="'slideout-panel-' + side" :style="{transform, 'transition-duration': duration + 'ms'}"
          class="slideout-panel"
+         @click="onClick"
          @touchstart="onTouchStart"
          @touchmove="onTouchMove"
          @touchcancel="onTouchCancel"
@@ -105,6 +106,9 @@ export default Vue.extend({
       this.translateXTo(this.translateTo);
       this.opening = true;
       this.isOpen = true;
+      if (document) {
+        document.documentElement.classList.add("slideout-open");
+      }
 
       await Timer.delay(this.duration + 50);
 
@@ -120,12 +124,20 @@ export default Vue.extend({
       this.translateXTo(0);
       this.closing = true;
       this.isOpen = false;
+      if (document) {
+        document.documentElement.classList.remove("slideout-open");
+      }
 
       await Timer.delay(this.duration + 50);
 
       this.transform = "";
       this.closing = false;
       this.$emit("input", this.isOpen);
+    },
+    onClick() {
+      if (this.isOpen) {
+        this.close();
+      }
     },
     onTouchStart(event: TouchEvent) {
       // Resets values on touchstart
@@ -250,6 +262,14 @@ export default Vue.extend({
 });
 </script>
 
+<style lang="scss">
+.slideout-open {
+  body {
+    overflow: hidden;
+  }
+}
+</style>
+
 <style lang="scss" scoped>
 .slideout-menu {
   display: none;
@@ -268,6 +288,10 @@ export default Vue.extend({
 .slideout-menu-right {
   right: 0;
 }
+.slideout-opening .slideout-menu,
+.slideout-open .slideout-menu {
+  display: block;
+}
 
 .slideout-panel {
   background-color: #fff; /* A background-color is required */
@@ -276,7 +300,6 @@ export default Vue.extend({
   will-change: transform;
   z-index: 1;
 }
-
 .slideout-open .slideout-panel {
   overflow: hidden;
 }
@@ -289,23 +312,27 @@ export default Vue.extend({
   transition-timing-function: ease(in-quint);
 }
 
-.slideout-opening .slideout-menu,
-.slideout-open .slideout-menu {
-  display: block;
-}
-
-.slideout-panel:before {
-  content: "";
-  display: block;
-  background-color: rgba(0, 0, 0, 0);
-  transition: background-color 0.5s ease-in-out;
-}
-.slideout-open .slideout-panel:before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 99;
-}
+// .slideout-panel:before {
+//   content: "";
+//   display: block;
+//   background-color: rgba(0, 0, 0, 0);
+// }
+// .slideout-opening .slideout-panel:before {
+//   transition: background-color 0.5s ease(out-quint);
+//   background-color: rgba(0, 0, 0, 0.5);
+// }
+// .slideout-closing .slideout-panel:before {
+//   transition: background-color 0.5s ease(in-quint);
+//   background-color: rgba(0, 0, 0, 0);
+// }
+// .slideout-openening .slideout-panel:before,
+// .slideout-closing .slideout-panel:before,
+// .slideout-open .slideout-panel:before {
+//   position: absolute;
+//   top: 0;
+//   bottom: 0;
+//   width: 100%;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   z-index: 99;
+// }
 </style>
