@@ -1,15 +1,15 @@
 <template>
   <div :class="{'flyout-opening': opening, 'flyout-closing': closing}" class="flyout">
-    <div ref="menu" :class="'flyout-menu-' + side" class="flyout-menu">
-      <slot name="menu"/>
+    <div ref="sidebar" :class="sidebarSideClass" :style="{width: sidebarWidth}" class="flyout-sidebar">
+      <slot name="sidebar"/>
     </div>
-    <div :class="'flyout-panel-' + side" :style="{transform: 'translateX(' + translateX + 'px)', 'transition-duration': duration + 'ms'}"
-         class="flyout-panel"
-         @click.passive="onClick"
-         @touchstart.passive="onTouchStart"
-         @touchmove.passive="onTouchMove"
-         @touchcancel.passive="onTouchCancel"
-         @touchend.passive="onTouchEnd">
+    <div :class="'flyout-content-' + side" :style="{transform: contentTransform, 'transition-duration': contentTransitionDuration}"
+         class="flyout-content"
+         @click.passive="onContentClick"
+         @touchstart.passive="onContentTouchStart"
+         @touchmove.passive="onContentTouchMove"
+         @touchcancel.passive="onContentTouchCancel"
+         @touchend.passive="onContentTouchEnd">
       <slot/>
     </div>
   </div>
@@ -63,11 +63,24 @@ export default Vue.extend({
     };
   },
   computed: {
+    contentTransform(): string {
+      return `translateX(${this.translateX}px)`;
+    },
+    contentTransitionDuration(): string {
+      return `${this.duration}ms`;
+    },
+    sidebarSideClass(): string {
+      return `flyout-sidebar-${this.side}`;
+    },
+    sidebarWidth(): string {
+      return `${this.width}px`;
+    },
     orientation(): number {
       return this.side === "right" ? -1 : 1;
     },
-    menu(): HTMLElement {
-      return this.$refs.menu as HTMLElement;
+    sidebarClientWidth(): number {
+      const sidebar = this.$refs.sidebar as Element;
+      return sidebar.clientWidth;
     }
   },
   watch: {
@@ -138,42 +151,30 @@ export default Vue.extend({
       this.closing = false;
       this.$emit("input", this.isOpen);
     },
-    onClick() {
+    onContentClick() {
       if (this.isOpen) {
         this.close();
       }
     },
-    onTouchStart(event: TouchEvent) {
-      // Resets values on touchstart
+    onContentTouchStart(event: TouchEvent) {
       if (event.touches === undefined) {
         return;
       }
+      // Reset values
       this.moved = false;
       this.closing = false;
       this.opening = false;
       this.startOffsetX = event.touches[0].pageX;
-      this.preventOpen = !this.isOpen && this.menu.clientWidth !== 0;
+      this.preventOpen = !this.isOpen && this.sidebarClientWidth !== 0;
     },
-    onTouchCancel() {
-      // Resets values on touchcancel
+    onContentTouchCancel() {
+      // Reset values
       this.moved = false;
       this.closing = false;
       this.opening = false;
     },
-    onTouchEnd() {
-      // Toggles flyout on touchend
-      if (this.moved) {
-        // this.$emit("translateend");
-        this.opening && Math.abs(this.currentOffsetX) > this.tolerance
-          ? this.open()
-          : this.close();
-      }
-      this.moved = false;
-      this.closing = false;
-      this.opening = false;
-    },
-    onTouchMove(event: TouchEvent) {
-      // Translates panel on touchmove
+    onContentTouchMove(event: TouchEvent) {
+      // Translates content
       if (
         this.scrolling ||
         this.preventOpen ||
@@ -218,11 +219,23 @@ export default Vue.extend({
         this.closing = true;
       }
     },
-    onScrollFn(e: Event) {
-      return this.onScrollInternal(e);
+    onContentTouchEnd() {
+      // Toggles flyout
+      if (this.moved) {
+        // this.$emit("translateend");
+        this.opening && Math.abs(this.currentOffsetX) > this.tolerance
+          ? this.open()
+          : this.close();
+      }
+      this.moved = false;
+      this.closing = false;
+      this.opening = false;
+    },
+    onScrollFn(event: Event) {
+      return this.onScrollInternal(event);
     },
     translateXTo(translateX: number) {
-      // Translates panel and updates currentOffset with a given X point
+      // Translates content and updates currentOffset with a given X point
       this.currentOffsetX = translateX;
       this.translateX = translateX;
     },
@@ -278,7 +291,7 @@ export default Vue.extend({
 .flyout {
 }
 
-.flyout-menu {
+.flyout-sidebar {
   display: none;
   bottom: 0;
   min-height: 100vh;
@@ -288,18 +301,18 @@ export default Vue.extend({
   top: 0;
   z-index: 0;
 }
-.flyout-menu-left {
+.flyout-sidebar-left {
   left: 0;
 }
-.flyout-menu-right {
+.flyout-sidebar-right {
   right: 0;
 }
-.flyout-opening .flyout-menu,
-.flyout-open .flyout-menu {
+.flyout-opening .flyout-sidebar,
+.flyout-open .flyout-sidebar {
   display: block;
 }
 
-.flyout-panel {
+.flyout-content {
   background-color: #fff; /* A background-color is required */
   min-height: 100vh;
   position: relative;
@@ -307,41 +320,41 @@ export default Vue.extend({
   z-index: 1;
 }
 .flyout-open {
-  .flyout-panel {
+  .flyout-content {
     overflow: hidden;
   }
 }
 .flyout-opening {
-  .flyout-panel {
+  .flyout-content {
     transition-property: transform;
     transition-timing-function: ease(out-quint);
   }
 }
 .flyout-closing {
-  .flyout-panel {
+  .flyout-content {
     transition-property: transform;
     transition-timing-function: ease(in-quint);
   }
 }
 
-// .flyout-panel:before {
+// .flyout-content:before {
 //   content: "";
 //   display: block;
 //   // background-color: rgba(0, 0, 0, 0);
 // }
 // .flyout-opening {
-//   .flyout-panel:before {
+//   .flyout-content:before {
 //     // background-color: rgba(0, 0, 0, 0.5);
 //     transition: background-color 0.5s ease(out-quint);
 //   }
 // }
 // .flyout-closing {
-//   .flyout-panel:before {
+//   .flyout-content:before {
 //     // background-color: rgba(0, 0, 0, 0);
 //     transition: background-color 0.5s ease(in-quint);
 //   }
 // }
-// .flyout-open .flyout-panel:before {
+// .flyout-open .flyout-content:before {
 //   position: absolute;
 //   top: 0;
 //   bottom: 0;

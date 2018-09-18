@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Flyout :value="isProfileFlyoutOpen" side="right">
-      <template slot="menu">
+      <template slot="sidebar">
         <aside>
           <h1>Profile</h1>
           This is to show profile information.
