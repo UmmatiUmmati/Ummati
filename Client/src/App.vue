@@ -23,7 +23,6 @@
 <script lang="ts">
 import Vue from "vue";
 import { createNamespacedHelpers } from "vuex";
-import Flyout from "@/components/Flyout.vue";
 import Footer from "@/components/Footer.vue";
 import Navigation from "@/components/navigation/Navigation.vue";
 import RouteTransition from "@/components/RouteTransition.vue";
@@ -34,7 +33,6 @@ const { mapState } = createNamespacedHelpers("main");
 
 export default Vue.extend({
   components: {
-    Flyout,
     Footer,
     Navigation,
     RouteTransition,

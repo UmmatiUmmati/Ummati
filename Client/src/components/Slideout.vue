@@ -19,6 +19,8 @@
 import Vue from "vue";
 import Timer from "@/framework/Timer";
 
+type Side = "left" | "right";
+
 export default Vue.extend({
   props: {
     duration: {
@@ -27,7 +29,7 @@ export default Vue.extend({
     },
     side: {
       default: "left",
-      type: String as () => "left" | "right"
+      type: String as () => Side
     },
     tolerance: {
       default: 70,
