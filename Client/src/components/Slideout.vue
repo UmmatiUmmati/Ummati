@@ -5,11 +5,11 @@
     </div>
     <div :class="'slideout-panel-' + side" :style="{transform, 'transition-duration': duration + 'ms'}"
          class="slideout-panel"
-         @click="onClick"
-         @touchstart="onTouchStart"
-         @touchmove="onTouchMove"
-         @touchcancel="onTouchCancel"
-         @touchend="onTouchEnd">
+         @click.passive="onClick"
+         @touchstart.passive="onTouchStart"
+         @touchmove.passive="onTouchMove"
+         @touchcancel.passive="onTouchCancel"
+         @touchend.passive="onTouchEnd">
       <slot/>
     </div>
   </div>
@@ -254,7 +254,7 @@ export default Vue.extend({
         tracking = false;
       }
 
-      node.addEventListener(event, captureEvent, false);
+      node.addEventListener(event, captureEvent, { passive: true });
 
       return captureEvent;
     }
