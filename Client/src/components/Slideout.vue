@@ -293,4 +293,19 @@ export default Vue.extend({
 .slideout-open .slideout-menu {
   display: block;
 }
+
+.slideout-panel:before {
+  content: "";
+  display: block;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.5s ease-in-out;
+}
+.slideout-open .slideout-panel:before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
 </style>
