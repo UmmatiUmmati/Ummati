@@ -1,16 +1,15 @@
 <template>
-  <div :class="{'slideout-opening': opening, 'slideout-closing': closing}">
-    <div ref="menu" :class="'slideout-menu-' + side" class="slideout-menu">
+  <div :class="{'flyout-opening': opening, 'flyout-closing': closing}" class="flyout">
+    <div ref="menu" :class="'flyout-menu-' + side" class="flyout-menu">
       <slot name="menu"/>
     </div>
-    <div :class="'slideout-panel-' + side" :style="{transform: 'translateX(' + translateX + 'px)', 'transition-duration': duration + 'ms'}"
-         class="slideout-panel"
+    <div :class="'flyout-panel-' + side" :style="{transform: 'translateX(' + translateX + 'px)', 'transition-duration': duration + 'ms'}"
+         class="flyout-panel"
          @click.passive="onClick"
          @touchstart.passive="onTouchStart"
          @touchmove.passive="onTouchMove"
          @touchcancel.passive="onTouchCancel"
          @touchend.passive="onTouchEnd">
-      <div style="float: right">{{transform}}</div>
       <slot/>
     </div>
   </div>
@@ -52,9 +51,11 @@ export default Vue.extend({
       moved: false,
       isOpen: false,
       preventOpen: false,
+
       scrolling: false,
       scrollTimeout: undefined as NodeJS.Timer | undefined,
       onScrollInternal: (e: Event) => {},
+
       startOffsetX: 0,
       currentOffsetX: 0,
       translateX: 0,
@@ -110,7 +111,7 @@ export default Vue.extend({
       this.opening = true;
       this.isOpen = true;
       if (document) {
-        document.documentElement.classList.add("slideout-open");
+        document.documentElement.classList.add("flyout-open");
       }
 
       await Timer.delay(this.duration + 50);
@@ -128,7 +129,7 @@ export default Vue.extend({
       this.closing = true;
       this.isOpen = false;
       if (document) {
-        document.documentElement.classList.remove("slideout-open");
+        document.documentElement.classList.remove("flyout-open");
       }
 
       await Timer.delay(this.duration + 50);
@@ -160,7 +161,7 @@ export default Vue.extend({
       this.opening = false;
     },
     onTouchEnd() {
-      // Toggles slideout on touchend
+      // Toggles flyout on touchend
       if (this.moved) {
         this.$emit("translateend");
         this.opening && Math.abs(this.currentOffsetX) > this.tolerance
@@ -228,7 +229,7 @@ export default Vue.extend({
     hasIgnoredElements(element: HTMLElement | undefined) {
       if (element) {
         while (element.parentNode) {
-          if (element.getAttribute("data-slideout-ignore") !== null) {
+          if (element.getAttribute("data-flyout-ignore") !== null) {
             return element;
           }
           element = element.parentNode as HTMLElement;
@@ -266,7 +267,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.slideout-open {
+.flyout-open {
   body {
     overflow: hidden;
   }
@@ -274,7 +275,10 @@ export default Vue.extend({
 </style>
 
 <style lang="scss" scoped>
-.slideout-menu {
+.flyout {
+}
+
+.flyout-menu {
   display: none;
   bottom: 0;
   min-height: 100vh;
@@ -282,63 +286,62 @@ export default Vue.extend({
   // -webkit-overflow-scrolling: touch;
   position: fixed;
   top: 0;
-  width: 256px;
   z-index: 0;
 }
-.slideout-menu-left {
+.flyout-menu-left {
   left: 0;
 }
-.slideout-menu-right {
+.flyout-menu-right {
   right: 0;
 }
-.slideout-opening .slideout-menu,
-.slideout-open .slideout-menu {
+.flyout-opening .flyout-menu,
+.flyout-open .flyout-menu {
   display: block;
 }
 
-.slideout-panel {
+.flyout-panel {
   background-color: #fff; /* A background-color is required */
   min-height: 100vh;
   position: relative;
   will-change: transform;
   z-index: 1;
 }
-.slideout-open {
-  .slideout-panel {
+.flyout-open {
+  .flyout-panel {
     overflow: hidden;
   }
 }
-.slideout-opening {
-  .slideout-panel {
+.flyout-opening {
+  .flyout-panel {
     transition-property: transform;
     transition-timing-function: ease(out-quint);
   }
 }
-.slideout-closing {
-  .slideout-panel {
+.flyout-closing {
+  .flyout-panel {
     transition-property: transform;
     transition-timing-function: ease(in-quint);
   }
 }
 
-// .slideout-panel:before {
+// .flyout-panel:before {
 //   content: "";
 //   display: block;
 //   // background-color: rgba(0, 0, 0, 0);
 // }
-// .slideout-opening {
-//   .slideout-panel:before {
+// .flyout-opening {
+//   .flyout-panel:before {
 //     // background-color: rgba(0, 0, 0, 0.5);
 //     transition: background-color 0.5s ease(out-quint);
 //   }
 // }
-// .slideout-closing {
-//   .slideout-panel:before {
+// .flyout-closing {
+//   .flyout-panel:before {
 //     // background-color: rgba(0, 0, 0, 0);
 //     transition: background-color 0.5s ease(in-quint);
 //   }
 // }
-// .slideout-open .slideout-panel:before {
+// .flyout-open .flyout-panel:before {
 //   position: absolute;
 //   top: 0;
 //   bottom: 0;

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Slideout :value="isProfileFlyoutOpen" side="right">
+    <Flyout :value="isProfileFlyoutOpen" side="right">
       <template slot="menu">
         <aside>
           <h1>Profile</h1>
@@ -16,27 +16,27 @@
         </RouteTransition>
         <Footer/>
       </div>
-    </Slideout>
+    </Flyout>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { createNamespacedHelpers } from "vuex";
+import Flyout from "@/components/Flyout.vue";
 import Footer from "@/components/Footer.vue";
 import Navigation from "@/components/navigation/Navigation.vue";
 import RouteTransition from "@/components/RouteTransition.vue";
-import Slideout from "@/components/Slideout.vue";
 import IMainState from "@/stores/main/IMainState.ts";
 
 const { mapState } = createNamespacedHelpers("main");
 
 export default Vue.extend({
   components: {
+    Flyout,
     Footer,
     Navigation,
-    RouteTransition,
-    Slideout
+    RouteTransition
   },
   metaInfo: {
     titleTemplate: "%s - Ummati"
