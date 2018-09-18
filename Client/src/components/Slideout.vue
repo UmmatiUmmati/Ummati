@@ -3,13 +3,14 @@
     <div ref="menu" :class="'slideout-menu-' + side" class="slideout-menu">
       <slot name="menu"/>
     </div>
-    <div :class="'slideout-panel-' + side" :style="{transform, 'transition-duration': duration + 'ms'}"
+    <div :class="'slideout-panel-' + side" :style="{transform: 'translateX(' + translateX + 'px)', 'transition-duration': duration + 'ms'}"
          class="slideout-panel"
          @click.passive="onClick"
          @touchstart.passive="onTouchStart"
          @touchmove.passive="onTouchMove"
          @touchcancel.passive="onTouchCancel"
          @touchend.passive="onTouchEnd">
+      <div style="float: right">{{transform}}</div>
       <slot/>
     </div>
   </div>
@@ -56,7 +57,7 @@ export default Vue.extend({
       onScrollInternal: (e: Event) => {},
       startOffsetX: 0,
       currentOffsetX: 0,
-      transform: "",
+      translateX: 0,
       translateTo: 0
     };
   },
@@ -132,7 +133,7 @@ export default Vue.extend({
 
       await Timer.delay(this.duration + 50);
 
-      this.transform = "";
+      this.translateX = 0;
       this.closing = false;
       this.$emit("input", this.isOpen);
     },
@@ -209,7 +210,7 @@ export default Vue.extend({
           this.opening = false;
         }
 
-        this.transform = "translateX(" + translateX + "px)";
+        this.translateX = translateX;
         this.$emit("translate", translateX);
         this.moved = true;
       } else if (this.isOpen) {
@@ -222,7 +223,7 @@ export default Vue.extend({
     translateXTo(translateX: number) {
       // Translates panel and updates currentOffset with a given X point
       this.currentOffsetX = translateX;
-      this.transform = "translateX(" + translateX + "px)";
+      this.translateX = translateX;
     },
     hasIgnoredElements(element: HTMLElement | undefined) {
       if (element) {
@@ -302,33 +303,41 @@ export default Vue.extend({
   will-change: transform;
   z-index: 1;
 }
-.slideout-open .slideout-panel {
-  overflow: hidden;
+.slideout-open {
+  .slideout-panel {
+    overflow: hidden;
+  }
 }
-.slideout-opening .slideout-panel {
-  transition-property: transform;
-  transition-timing-function: ease(out-quint);
+.slideout-opening {
+  .slideout-panel {
+    transition-property: transform;
+    transition-timing-function: ease(out-quint);
+  }
 }
-.slideout-closing .slideout-panel {
-  transition-property: transform;
-  transition-timing-function: ease(in-quint);
+.slideout-closing {
+  .slideout-panel {
+    transition-property: transform;
+    transition-timing-function: ease(in-quint);
+  }
 }
 
 // .slideout-panel:before {
 //   content: "";
 //   display: block;
-//   background-color: rgba(0, 0, 0, 0);
+//   // background-color: rgba(0, 0, 0, 0);
 // }
-// .slideout-opening .slideout-panel:before {
-//   transition: background-color 0.5s ease(out-quint);
-//   background-color: rgba(0, 0, 0, 0.5);
+// .slideout-opening {
+//   .slideout-panel:before {
+//     // background-color: rgba(0, 0, 0, 0.5);
+//     transition: background-color 0.5s ease(out-quint);
+//   }
 // }
-// .slideout-closing .slideout-panel:before {
-//   transition: background-color 0.5s ease(in-quint);
-//   background-color: rgba(0, 0, 0, 0);
+// .slideout-closing {
+//   .slideout-panel:before {
+//     // background-color: rgba(0, 0, 0, 0);
+//     transition: background-color 0.5s ease(in-quint);
+//   }
 // }
-// .slideout-openening .slideout-panel:before,
-// .slideout-closing .slideout-panel:before,
 // .slideout-open .slideout-panel:before {
 //   position: absolute;
 //   top: 0;
