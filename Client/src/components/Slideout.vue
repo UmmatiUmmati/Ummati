@@ -167,8 +167,8 @@ export default Vue.extend({
         return;
       }
 
-      var dif_x = event.touches[0].clientX - this.startOffsetX;
-      var translateX = (this.currentOffsetX = dif_x);
+      const dif_x = event.touches[0].clientX - this.startOffsetX;
+      let translateX = (this.currentOffsetX = dif_x);
 
       if (Math.abs(translateX) > this.width) {
         return;
@@ -177,7 +177,7 @@ export default Vue.extend({
       if (Math.abs(dif_x) > 20) {
         this.opening = true;
 
-        var oriented_dif_x = dif_x * this.orientation;
+        const oriented_dif_x = dif_x * this.orientation;
 
         if (
           (this.isOpen && oriented_dif_x > 0) ||
@@ -222,8 +222,8 @@ export default Vue.extend({
       return null;
     },
     decouple(node: Node, event: string, fn: () => void) {
-      var eve: Event;
-      var tracking = false;
+      let eve: Event;
+      let tracking = false;
 
       function captureEvent(e: Event) {
         eve = e;
