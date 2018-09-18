@@ -1,5 +1,5 @@
 <template>
-  <div class="profile" @click="onProfileClick">
+  <div class="profile" @click.passive="onProfileClick">
     Profile
   </div>
 </template>
