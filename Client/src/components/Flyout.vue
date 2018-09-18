@@ -163,7 +163,7 @@ export default Vue.extend({
     onTouchEnd() {
       // Toggles flyout on touchend
       if (this.moved) {
-        this.$emit("translateend");
+        // this.$emit("translateend");
         this.opening && Math.abs(this.currentOffsetX) > this.tolerance
           ? this.open()
           : this.close();
@@ -202,9 +202,9 @@ export default Vue.extend({
           return;
         }
 
-        if (!this.moved) {
-          this.$emit("translatestart");
-        }
+        // if (!this.moved) {
+        //   this.$emit("translatestart");
+        // }
 
         if (oriented_dif_x <= 0) {
           translateX = dif_x + this.width * this.orientation;
@@ -212,7 +212,7 @@ export default Vue.extend({
         }
 
         this.translateX = translateX;
-        this.$emit("translate", translateX);
+        // this.$emit("translate", this.translateX);
         this.moved = true;
       } else if (this.isOpen) {
         this.closing = true;
