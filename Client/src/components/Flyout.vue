@@ -289,14 +289,16 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .flyout {
+  --flyout-content-background-colour: var(--global-background-colour);
+  --flyout-sidebar-background-colour: var(--global-background-colour);
 }
 
 .flyout-sidebar {
+  background-color: var(--flyout-sidebar-background-colour);
   display: none;
   bottom: 0;
   min-height: 100vh;
-  // overflow-y: scroll;
-  // -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
   position: fixed;
   top: 0;
   z-index: 0;
@@ -313,7 +315,8 @@ export default Vue.extend({
 }
 
 .flyout-content {
-  background-color: #fff; /* A background-color is required */
+  // A background-color is required
+  background-color: var(--flyout-content-background-colour);
   min-height: 100vh;
   position: relative;
   will-change: transform;
@@ -336,30 +339,29 @@ export default Vue.extend({
     transition-timing-function: ease(in-quint);
   }
 }
-
 // .flyout-content:before {
-//   content: "";
-//   display: block;
-//   // background-color: rgba(0, 0, 0, 0);
+// content: "";
+// display: block;
+// // background-color: rgba(0, 0, 0, 0);
 // }
 // .flyout-opening {
-//   .flyout-content:before {
-//     // background-color: rgba(0, 0, 0, 0.5);
-//     transition: background-color 0.5s ease(out-quint);
-//   }
+// .flyout-content:before {
+// // background-color: rgba(0, 0, 0, 0.5);
+// transition: background-color 0.5s ease(out-quint);
+// }
 // }
 // .flyout-closing {
-//   .flyout-content:before {
-//     // background-color: rgba(0, 0, 0, 0);
-//     transition: background-color 0.5s ease(in-quint);
-//   }
+// .flyout-content:before {
+// // background-color: rgba(0, 0, 0, 0);
+// transition: background-color 0.5s ease(in-quint);
+// }
 // }
 // .flyout-open .flyout-content:before {
-//   position: absolute;
-//   top: 0;
-//   bottom: 0;
-//   width: 100%;
-//   background-color: rgba(0, 0, 0, 0.5);
-//   z-index: 99;
+// position: absolute;
+// top: 0;
+// bottom: 0;
+// width: 100%;
+// background-color: rgba(0, 0, 0, 0.5);
+// z-index: 99;
 // }
 </style>
