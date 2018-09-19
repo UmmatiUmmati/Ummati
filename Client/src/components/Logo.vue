@@ -44,35 +44,42 @@
 .skyscraper {
   visibility: hidden;
 }
+
 .portrait {
   visibility: visible;
 }
+
 @media (min-aspect-ratio: 1/1) {
   .portrait,
   .landscape,
   .skyscraper {
     visibility: hidden;
   }
+
   .square {
     visibility: visible;
   }
 }
+
 @media (min-aspect-ratio: 2/1) {
   .portrait,
   .square,
   .skyscraper {
     visibility: hidden;
   }
+
   .landscape {
     visibility: visible;
   }
 }
+
 @media (max-aspect-ratio: 1/2) {
   .square,
   .landscape,
   .portrait {
     visibility: hidden;
   }
+
   .skyscraper {
     visibility: visible;
   }

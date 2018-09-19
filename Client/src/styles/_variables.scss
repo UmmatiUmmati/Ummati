@@ -4,11 +4,13 @@
   --global-primary-colour-saturation: 100%;
   --global-primary-colour-lightness: 50%;
   --global-primary-colour-opacity: 1;
-  --global-primary-colour: hsla(
-    var(--global-primary-colour-hue),
-    var(--global-primary-colour-saturation),
-    var(--global-primary-colour-lightness),
-    var(--global-primary-colour-opacity));
+  --global-primary-colour:
+    hsla(
+      var(--global-primary-colour-hue),
+      var(--global-primary-colour-saturation),
+      var(--global-primary-colour-lightness),
+      var(--global-primary-colour-opacity)
+    );
 
   // Light Theme Colours
   --global-background-colour: hsla(0, 100%, 100%, 1);
@@ -16,7 +18,7 @@
   --global-text-colour-muted: hsla(208, 13%, 49%, 1);
 
   // Spacers
-  --global-spacer-0: 0rem;
+  --global-spacer-0: 0;
   --global-spacer-1: 0.25rem;
   --global-spacer-2: 0.5rem;
   --global-spacer-3: 1rem;
@@ -31,7 +33,7 @@
   --global-breakpoint-xl: 1200px;
 
   // Border Radius
-  --global-border-radius: .3rem;
+  --global-border-radius: 0.3rem;
 
   // Border Width
   --global-border-width: 1px;
@@ -72,5 +74,4 @@
   --global-background-colour: hsla(0, 0%, 0%, 1);
   --global-text-colour: hsla(0, 100%, 100%, 1);
   --global-text-colour-muted: hsla(0, 100%, 100%, 1);
-
 }

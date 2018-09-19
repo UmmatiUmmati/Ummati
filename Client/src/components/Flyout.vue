@@ -280,17 +280,18 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.flyout-open {
-  body {
-    overflow: hidden;
-  }
-}
-</style>
-
-<style lang="scss" scoped>
 .flyout {
   --flyout-content-background-colour: var(--global-background-colour);
   --flyout-sidebar-background-colour: var(--global-background-colour);
+}
+
+.flyout-content {
+  // A background-color is required
+  background-color: var(--flyout-content-background-colour);
+  min-height: 100vh;
+  position: relative;
+  will-change: transform;
+  z-index: 1;
 }
 
 .flyout-sidebar {
@@ -302,43 +303,48 @@ export default Vue.extend({
   position: fixed;
   top: 0;
   z-index: 0;
-}
-.flyout-sidebar-left {
-  left: 0;
-}
-.flyout-sidebar-right {
-  right: 0;
-}
-.flyout-opening .flyout-sidebar,
-.flyout-open .flyout-sidebar {
-  display: block;
-}
 
-.flyout-content {
-  // A background-color is required
-  background-color: var(--flyout-content-background-colour);
-  min-height: 100vh;
-  position: relative;
-  will-change: transform;
-  z-index: 1;
-}
-.flyout-open {
-  .flyout-content {
-    overflow: hidden;
+  .flyout-sidebar-left {
+    left: 0;
+  }
+
+  .flyout-sidebar-right {
+    right: 0;
   }
 }
+
 .flyout-opening {
+  .flyout-sidebar {
+    display: block;
+  }
+
   .flyout-content {
     transition-property: transform;
     transition-timing-function: ease(out-quint);
   }
 }
+
 .flyout-closing {
   .flyout-content {
     transition-property: transform;
     transition-timing-function: ease(in-quint);
   }
 }
+
+.flyout-open {
+  body {
+    overflow: hidden;
+  }
+
+  .flyout-content {
+    overflow: hidden;
+  }
+
+  .flyout-sidebar {
+    display: block;
+  }
+}
+
 // .flyout-content:before {
 // content: "";
 // display: block;

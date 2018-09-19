@@ -58,14 +58,17 @@ html {
   background: var(--global-background-colour);
   color: var(--global-text-colour);
 }
+
 .dark-theme {
   background: var(--global-background-colour);
   color: var(--global-text-colour);
 }
+
 .high-contrast-theme {
   background: var(--global-background-colour);
   color: var(--global-text-colour);
 }
+
 .theme-transition {
   transition: all 750ms !important;
   transition-delay: 0 !important;

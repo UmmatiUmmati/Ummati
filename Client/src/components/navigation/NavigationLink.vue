@@ -50,8 +50,9 @@ export default Vue.extend({
   }
 
   &.router-link-exact-active {
-    border-bottom: var(--navigation-link-border-width) solid
-      var(--navigation-link-colour);
+    border-bottom-color: var(--navigation-link-colour);
+    border-bottom-style: solid;
+    border-bottom-width: var(--navigation-link-border-width);
   }
 
   .icon {
