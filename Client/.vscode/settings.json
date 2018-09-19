@@ -1,4 +1,5 @@
 {
+  // Disable editor formatting and rely on eslint.
   "editor.formatOnSave": false,
   "eslint.autoFixOnSave": true,
   "eslint.validate": [
@@ -14,5 +15,9 @@
       "language": "vue",
       "autoFix": true
     }
-  ]
+  ],
+  // Disable editor validation and rely on Stylelint.
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false
 }
