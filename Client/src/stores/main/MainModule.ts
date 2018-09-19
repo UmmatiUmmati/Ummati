@@ -11,7 +11,7 @@ export const getters: GetterTree<IMainState, IRootState> = {
 };
 
 export const mutations: MutationTree<IMainState> = {
-  setIsProfileFlyoutOpen: (s, p: boolean) => (s.isProfileFlyoutOpen = p)
+  isProfileFlyoutOpen: (s, p: boolean) => (s.isProfileFlyoutOpen = p)
 };
 
 export const actions: ActionTree<IMainState, IRootState> = {

@@ -84,11 +84,11 @@ export default Vue.extend({
     }
   },
   watch: {
-    value() {
-      if (this.isOpen) {
-        this.close();
-      } else {
+    value(newValue, oldValue) {
+      if (this.value) {
         this.open();
+      } else {
+        this.close();
       }
     }
   },

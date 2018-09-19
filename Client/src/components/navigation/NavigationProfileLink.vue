@@ -6,22 +6,23 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { createNamespacedHelpers } from "vuex";
 import IMainState from "@/stores/main/IMainState.ts";
-
-const { mapMutations, mapState } = createNamespacedHelpers("main");
 
 export default Vue.extend({
   name: "NavigationProfileLink",
   computed: {
-    ...mapState({
-      isProfileFlyoutOpen: (state: IMainState) => state.isProfileFlyoutOpen
-    })
+    isProfileFlyoutOpen: {
+      get(): boolean {
+        return this.$store.state.main.isProfileFlyoutOpen;
+      },
+      set(value: boolean) {
+        this.$store.commit("main/isProfileFlyoutOpen", value);
+      }
+    }
   },
   methods: {
-    ...mapMutations(["setIsProfileFlyoutOpen"]),
     onProfileClick() {
-      this.setIsProfileFlyoutOpen(!this.isProfileFlyoutOpen);
+      this.isProfileFlyoutOpen = !this.isProfileFlyoutOpen;
     }
   }
 });

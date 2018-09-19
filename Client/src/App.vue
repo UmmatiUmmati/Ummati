@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Flyout :value="isProfileFlyoutOpen" side="right">
+    <Flyout v-model="isProfileFlyoutOpen" side="right">
       <template slot="sidebar">
         <aside>
           <h1>Profile</h1>
@@ -22,14 +22,11 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { createNamespacedHelpers } from "vuex";
 import Flyout from "@/components/Flyout.vue";
 import Footer from "@/components/Footer.vue";
 import Navigation from "@/components/navigation/Navigation.vue";
 import RouteTransition from "@/components/RouteTransition.vue";
 import IMainState from "@/stores/main/IMainState.ts";
-
-const { mapState } = createNamespacedHelpers("main");
 
 export default Vue.extend({
   components: {
@@ -42,9 +39,14 @@ export default Vue.extend({
     titleTemplate: "%s - Ummati"
   },
   computed: {
-    ...mapState({
-      isProfileFlyoutOpen: (state: IMainState) => state.isProfileFlyoutOpen
-    })
+    isProfileFlyoutOpen: {
+      get(): boolean {
+        return this.$store.state.main.isProfileFlyoutOpen;
+      },
+      set(value: boolean) {
+        this.$store.commit("main/isProfileFlyoutOpen", value);
+      }
+    }
   }
 });
 </script>
