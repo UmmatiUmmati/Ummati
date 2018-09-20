@@ -1,9 +1,9 @@
 <template>
-  <div :class="{'flyout-opening': opening, 'flyout-closing': closing}" class="flyout">
-    <div ref="sidebar" :class="sidebarSideClass" :style="{width: sidebarWidth}" class="flyout-sidebar">
+  <div :class="{'flyout-opening': opening, 'flyout-closing': closing, 'flyout-left': isLeftSide, 'flyout-right': isRightSide}" class="flyout">
+    <div ref="sidebar" :style="{width: sidebarWidth}" class="flyout-sidebar">
       <slot name="sidebar"/>
     </div>
-    <div :class="'flyout-content-' + side" :style="{transform: contentTransform, 'transition-duration': contentTransitionDuration}"
+    <div :style="{transform: contentTransform, 'transition-duration': contentTransitionDuration}"
          class="flyout-content"
          @click.passive="onContentClick"
          @touchstart.passive="onContentTouchStart"
@@ -69,8 +69,11 @@ export default Vue.extend({
     contentTransitionDuration(): string {
       return `${this.duration}ms`;
     },
-    sidebarSideClass(): string {
-      return `flyout-sidebar-${this.side}`;
+    isLeftSide(): boolean {
+      return this.side === "left";
+    },
+    isRightSide(): boolean {
+      return this.side === "right";
     },
     sidebarWidth(): string {
       return `${this.width}px`;
@@ -303,12 +306,16 @@ export default Vue.extend({
   position: fixed;
   top: 0;
   z-index: 0;
+}
 
-  &.flyout-sidebar-left {
+.flyout-left {
+  .flyout-sidebar {
     left: 0;
   }
+}
 
-  &.flyout-sidebar-right {
+.flyout-right {
+  .flyout-sidebar {
     right: 0;
   }
 }
