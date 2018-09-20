@@ -31,6 +31,12 @@ export default Vue.extend({
       default: "left",
       type: String as () => Side
     },
+    // Only starts moving the sidebar when the user drags for more than the specified threshold
+    threshold: {
+      default: 20,
+      type: Number
+    },
+    // The number of px needed for the sidebar can be opened completely, otherwise it closes.
     tolerance: {
       default: 70,
       type: Number
@@ -194,7 +200,7 @@ export default Vue.extend({
         return;
       }
 
-      if (Math.abs(dif_x) > 20) {
+      if (Math.abs(dif_x) > this.threshold) {
         this.opening = true;
 
         const oriented_dif_x = dif_x * this.orientation;
