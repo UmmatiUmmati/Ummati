@@ -325,6 +325,10 @@ export default Vue.extend({
 }
 
 .flyout-closing {
+  .flyout-sidebar {
+    display: block;
+  }
+
   .flyout-content {
     transition-property: transform;
     transition-timing-function: ease(in-quint);
