@@ -304,11 +304,11 @@ export default Vue.extend({
   top: 0;
   z-index: 0;
 
-  .flyout-sidebar-left {
+  &.flyout-sidebar-left {
     left: 0;
   }
 
-  .flyout-sidebar-right {
+  &.flyout-sidebar-right {
     right: 0;
   }
 }
