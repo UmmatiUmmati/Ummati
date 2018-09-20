@@ -31,7 +31,7 @@ export default Vue.extend({
       default: "left",
       type: String as () => Side
     },
-    // Only starts moving the sidebar when the user drags for more than the specified threshold
+    // Only starts moving the sidebar when the user drags for more than the specified threshold.
     threshold: {
       default: 20,
       type: Number
@@ -41,10 +41,12 @@ export default Vue.extend({
       default: 70,
       type: Number
     },
+    // True if the flyout is open, otherwise false.
     value: {
       default: false,
       type: Boolean
     },
+    // The width of the flyout.
     width: {
       default: 256,
       type: Number
