@@ -6,6 +6,8 @@ import router from "./Router";
 import store from "@/stores/Store";
 import "./RegisterServiceWorker";
 
+// Use Idle Until Urgent pattern. See https://github.com/GoogleChromeLabs/idlize.
+
 Vue.config.productionTip = false;
 
 Vue.use(Meta);
