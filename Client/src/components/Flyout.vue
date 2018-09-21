@@ -1,9 +1,9 @@
 <template>
-  <div :class="{'flyout-opening': opening, 'flyout-closing': closing, 'flyout-left': isLeftSide, 'flyout-right': isRightSide}" class="flyout">
-    <div ref="sidebar" :style="{width: sidebarWidth}" class="flyout-sidebar">
+  <div :class="flyoutClass" :style="flyoutStyle" class="flyout">
+    <div ref="sidebar" :style="sidebarStyle" class="flyout-sidebar">
       <slot name="sidebar"/>
     </div>
-    <div :style="{transform: contentTransform, 'transition-duration': contentTransitionDuration}"
+    <div :style="contentStyle"
          class="flyout-content"
          @click.passive="onContentClick"
          @touchstart.passive="onContentTouchStart"
@@ -19,14 +19,22 @@
 import Vue from "vue";
 import Timer from "@/framework/Timer";
 
+type Move = "content" | "sidebar" | "both";
 type Side = "left" | "right";
 
 export default Vue.extend({
   props: {
+    // The duration of the animation in milliseconds.
     duration: {
       default: 300,
       type: Number
     },
+    // Which element to animate. The sidebar, content or both.
+    move: {
+      default: "sidebar",
+      type: String as () => Move
+    },
+    // Show the flyout on the left or the right hand side.
     side: {
       default: "left",
       type: String as () => Side
@@ -71,20 +79,55 @@ export default Vue.extend({
     };
   },
   computed: {
-    contentTransform(): string {
-      return `translateX(${this.translateX}px)`;
+    flyoutClass(): any {
+      let classes: any = {
+        "flyout-opening": this.opening,
+        "flyout-closing": this.closing,
+        "flyout-left": this.side === "left",
+        "flyout-right": this.side === "right"
+      };
+      classes[`flyout-move-${this.move}`] = true;
+      return classes;
     },
-    contentTransitionDuration(): string {
-      return `${this.duration}ms`;
+    flyoutStyle(): any {
+      let style: any = {
+        "transition-duration": this.transitionDurationString
+      };
+      if (this.move == "both") {
+        style.transform = this.transformString;
+      }
+      return style;
     },
-    isLeftSide(): boolean {
-      return this.side === "left";
+    sidebarStyle(): any {
+      let style: any = {
+        "transition-duration": this.transitionDurationString,
+        width: this.sidebarWidth
+      };
+      if (this.move === "sidebar") {
+        style.transform = this.transformString;
+      }
+      return style;
     },
-    isRightSide(): boolean {
-      return this.side === "right";
+    contentStyle(): any {
+      let style: any = {
+        "transition-duration": this.transitionDurationString
+      };
+      if (this.move === "content") {
+        style.transform = this.transformString;
+      }
+      return style;
     },
     sidebarWidth(): string {
       return `${this.width}px`;
+    },
+    transformString(): string {
+      if (this.translateX === 0) {
+        return "";
+      }
+      return `translateX(${this.translateX}px)`;
+    },
+    transitionDurationString(): string {
+      return `${this.duration}ms`;
     },
     orientation(): number {
       return this.side === "right" ? -1 : 1;
@@ -361,6 +404,22 @@ export default Vue.extend({
 
   .flyout-sidebar {
     display: block;
+  }
+}
+
+.flyout-left.flyout-move-sidebar,
+.flyout-left.flyout-move-both {
+  .flyout-sidebar {
+    // transform: translate(-100%, 0);
+    z-index: 2;
+  }
+}
+
+.flyout-right.flyout-move-sidebar,
+.flyout-right.flyout-move-both {
+  .flyout-sidebar {
+    transform: translate(100%, 0);
+    z-index: 2;
   }
 }
 
