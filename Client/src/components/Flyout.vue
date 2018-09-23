@@ -31,12 +31,12 @@ export default Vue.extend({
     },
     // Which element to animate. The sidebar, content or both.
     move: {
-      default: "sidebar",
+      default: "both",
       type: String as () => Move
     },
     // Show the flyout on the left or the right hand side.
     side: {
-      default: "left",
+      default: "right",
       type: String as () => Side
     },
     // Only starts moving the sidebar when the user drags for more than the specified threshold.
@@ -400,9 +400,20 @@ export default Vue.extend({
   }
 
   .flyout-sidebar {
-    transform: translate(100%, 0);
     will-change: transform;
     z-index: 1;
+  }
+
+  &.flyout-left {
+    .flyout-sidebar {
+      transform: translate(-100%, 0);
+    }
+  }
+
+  &.flyout-right {
+    .flyout-sidebar {
+      transform: translate(100%, 0);
+    }
   }
 
   &.flyout-opening {
@@ -425,8 +436,16 @@ export default Vue.extend({
     will-change: transform;
   }
 
-  .flyout-sidebar {
-    transform: translate(100%, 0);
+  &.flyout-left {
+    .flyout-sidebar {
+      transform: translate(-100%, 0);
+    }
+  }
+
+  &.flyout-right {
+    .flyout-sidebar {
+      transform: translate(100%, 0);
+    }
   }
 
   &.flyout-opening {

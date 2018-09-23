@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Flyout v-model="isProfileFlyoutOpen" side="right">
+    <Flyout v-model="isProfileFlyoutOpen">
       <template slot="sidebar">
         <aside>
           <h1>Profile</h1>
