@@ -1,6 +1,6 @@
 <template>
   <div :class="flyoutClass" :style="flyoutStyle" class="flyout">
-    <div ref="sidebar" :style="sidebarStyle" class="flyout-sidebar">
+    <div :style="sidebarStyle" class="flyout-sidebar">
       <slot name="sidebar"/>
     </div>
     <div :style="contentStyle"
@@ -31,7 +31,7 @@ export default Vue.extend({
     },
     // Which element to animate. The sidebar, content or both.
     move: {
-      default: "sidebar",
+      default: "both",
       type: String as () => Move
     },
     // Show the flyout on the left or the right hand side.
@@ -66,7 +66,6 @@ export default Vue.extend({
       opening: false,
       moved: false,
       isOpen: false,
-      preventOpen: false,
 
       scrolling: false,
       scrollTimeout: undefined as NodeJS.Timer | undefined,
@@ -90,32 +89,32 @@ export default Vue.extend({
       return classes;
     },
     flyoutStyle(): any {
-      let style: any = {
-        "transition-duration": this.transitionDurationString
-      };
-      if (this.move == "both") {
-        style.transform = this.transformString;
+      if (this.move === "both") {
+        return {
+          transform: this.transformString,
+          "transition-duration": this.transitionDurationString
+        };
       }
-      return style;
+      return undefined;
     },
     sidebarStyle(): any {
       let style: any = {
-        "transition-duration": this.transitionDurationString,
         width: this.sidebarWidth
       };
       if (this.move === "sidebar") {
         style.transform = this.transformString;
+        style["transition-duration"] = this.transitionDurationString;
       }
       return style;
     },
     contentStyle(): any {
-      let style: any = {
-        "transition-duration": this.transitionDurationString
-      };
       if (this.move === "content") {
-        style.transform = this.transformString;
+        return {
+          transform: this.transformString,
+          "transition-duration": this.transitionDurationString
+        };
       }
-      return style;
+      return undefined;
     },
     sidebarWidth(): string {
       return `${this.width}px`;
@@ -131,10 +130,6 @@ export default Vue.extend({
     },
     orientation(): number {
       return this.side === "right" ? -1 : 1;
-    },
-    sidebarClientWidth(): number {
-      const sidebar = this.$refs.sidebar as Element;
-      return sidebar.clientWidth;
     }
   },
   watch: {
@@ -175,6 +170,7 @@ export default Vue.extend({
     async open() {
       this.$emit("opening");
       this.translateXTo(this.translateTo);
+      this.closing = false;
       this.opening = true;
       this.isOpen = true;
       if (document) {
@@ -187,20 +183,21 @@ export default Vue.extend({
       this.$emit("input", this.isOpen);
     },
     async close() {
-      if (!this.isOpen && !this.opening) {
+      if (!(this.isOpen || this.opening)) {
         return;
       }
 
       this.$emit("closing");
       this.translateXTo(0);
       this.closing = true;
+      this.opening = false;
       this.isOpen = false;
-      if (document) {
-        document.documentElement.classList.remove("flyout-open");
-      }
 
       await Timer.delay(this.duration + 50);
 
+      if (document) {
+        document.documentElement.classList.remove("flyout-open");
+      }
       this.translateX = 0;
       this.closing = false;
       this.$emit("input", this.isOpen);
@@ -219,7 +216,6 @@ export default Vue.extend({
       this.closing = false;
       this.opening = false;
       this.startOffsetX = event.touches[0].pageX;
-      this.preventOpen = !this.isOpen && this.sidebarClientWidth !== 0;
     },
     onContentTouchCancel() {
       // Reset values
@@ -231,7 +227,6 @@ export default Vue.extend({
       // Translates content
       if (
         this.scrolling ||
-        this.preventOpen ||
         event.touches === undefined ||
         this.hasIgnoredElements(event.target as HTMLElement)
       ) {
@@ -344,19 +339,16 @@ export default Vue.extend({
   background-color: var(--flyout-content-background-colour);
   min-height: 100vh;
   position: relative;
-  will-change: transform;
-  z-index: 1;
 }
 
 .flyout-sidebar {
   background-color: var(--flyout-sidebar-background-colour);
-  display: none;
   bottom: 0;
   min-height: 100vh;
   overflow-y: auto;
   position: fixed;
   top: 0;
-  z-index: 0;
+  visibility: hidden;
 }
 
 .flyout-left {
@@ -371,25 +363,97 @@ export default Vue.extend({
   }
 }
 
-.flyout-opening {
-  .flyout-sidebar {
-    display: block;
+.flyout-move-content {
+  .flyout-content {
+    transform: translate(100%, 0);
+    will-change: transform;
+    z-index: 1;
   }
 
-  .flyout-content {
-    transition-property: transform;
-    transition-timing-function: ease(out-quint);
+  .flyout-sidebar {
+    z-index: 0;
+  }
+
+  &.flyout-opening {
+    .flyout-content {
+      transition-property: transform;
+      transition-timing-function: ease(out-quint);
+    }
+
+    .flyout-sidebar {
+      visibility: visible;
+    }
+  }
+
+  &.flyout-closing {
+    .flyout-content {
+      transition-property: transform;
+      transition-timing-function: ease(in-quint);
+    }
+
+    .flyout-sidebar {
+      visibility: visible;
+    }
   }
 }
 
-.flyout-closing {
-  .flyout-sidebar {
-    display: block;
+.flyout-move-sidebar {
+  .flyout-content {
+    z-index: 0;
   }
 
-  .flyout-content {
-    transition-property: transform;
-    transition-timing-function: ease(in-quint);
+  .flyout-sidebar {
+    transform: translate(100%, 0);
+    will-change: transform;
+    z-index: 1;
+  }
+
+  &.flyout-opening {
+    .flyout-sidebar {
+      transition-property: transform;
+      transition-timing-function: ease(out-quint);
+      visibility: visible;
+    }
+  }
+
+  &.flyout-closing {
+    .flyout-sidebar {
+      transition-property: transform;
+      transition-timing-function: ease(in-quint);
+      visibility: visible;
+    }
+  }
+}
+
+.flyout-move-both {
+  .flyout {
+    will-change: transform;
+  }
+
+  .flyout-sidebar {
+    transform: translate(100%, 0);
+  }
+
+  &.flyout-opening {
+    .flyout {
+      transition-property: transform;
+      transition-timing-function: ease(out-quint);
+    }
+
+    .flyout-sidebar {
+      visibility: visible;
+    }
+  }
+
+  &.flyout-closing {
+    .flyout {
+      transition-property: transform;
+      transition-timing-function: ease(in-quint);
+    }
+
+    .flyout-sidebar {
+      visibility: visible;
+    }
   }
 }
 
@@ -403,23 +467,7 @@ export default Vue.extend({
   }
 
   .flyout-sidebar {
-    display: block;
-  }
-}
-
-.flyout-left.flyout-move-sidebar,
-.flyout-left.flyout-move-both {
-  .flyout-sidebar {
-    // transform: translate(-100%, 0);
-    z-index: 2;
-  }
-}
-
-.flyout-right.flyout-move-sidebar,
-.flyout-right.flyout-move-both {
-  .flyout-sidebar {
-    transform: translate(100%, 0);
-    z-index: 2;
+    visibility: visible;
   }
 }
 
