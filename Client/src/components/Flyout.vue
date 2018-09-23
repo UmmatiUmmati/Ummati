@@ -31,7 +31,7 @@ export default Vue.extend({
     },
     // Which element to animate. The sidebar, content or both.
     move: {
-      default: "both",
+      default: "content",
       type: String as () => Move
     },
     // Show the flyout on the left or the right hand side.
@@ -379,20 +379,12 @@ export default Vue.extend({
       transition-property: transform;
       transition-timing-function: ease(out-quint);
     }
-
-    .flyout-sidebar {
-      visibility: visible;
-    }
   }
 
   &.flyout-closing {
     .flyout-content {
       transition-property: transform;
       transition-timing-function: ease(in-quint);
-    }
-
-    .flyout-sidebar {
-      visibility: visible;
     }
   }
 }
@@ -412,7 +404,6 @@ export default Vue.extend({
     .flyout-sidebar {
       transition-property: transform;
       transition-timing-function: ease(out-quint);
-      visibility: visible;
     }
   }
 
@@ -420,7 +411,6 @@ export default Vue.extend({
     .flyout-sidebar {
       transition-property: transform;
       transition-timing-function: ease(in-quint);
-      visibility: visible;
     }
   }
 }
@@ -439,10 +429,6 @@ export default Vue.extend({
       transition-property: transform;
       transition-timing-function: ease(out-quint);
     }
-
-    .flyout-sidebar {
-      visibility: visible;
-    }
   }
 
   &.flyout-closing {
@@ -450,10 +436,18 @@ export default Vue.extend({
       transition-property: transform;
       transition-timing-function: ease(in-quint);
     }
+  }
+}
 
-    .flyout-sidebar {
-      visibility: visible;
-    }
+.flyout-opening {
+  .flyout-sidebar {
+    visibility: visible;
+  }
+}
+
+.flyout-closing {
+  .flyout-sidebar {
+    visibility: visible;
   }
 }
 
