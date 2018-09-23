@@ -31,7 +31,7 @@ export default Vue.extend({
     },
     // Which element to animate. The sidebar, content or both.
     move: {
-      default: "content",
+      default: "sidebar",
       type: String as () => Move
     },
     // Show the flyout on the left or the right hand side.
@@ -102,7 +102,7 @@ export default Vue.extend({
         width: this.sidebarWidth
       };
       if (this.move === "sidebar") {
-        style.transform = this.transformString;
+        style.transform = this.sidebarTransformString;
         style["transition-duration"] = this.transitionDurationString;
       }
       return style;
@@ -115,6 +115,12 @@ export default Vue.extend({
         };
       }
       return undefined;
+    },
+    sidebarTransformString(): string {
+      if (this.translateX === 0) {
+        return "";
+      }
+      return `translateX(${this.translateX - this.orientation * this.width}px)`;
     },
     sidebarWidth(): string {
       return `${this.width}px`;
@@ -365,7 +371,6 @@ export default Vue.extend({
 
 .flyout-move-content {
   .flyout-content {
-    transform: translate(100%, 0);
     will-change: transform;
     z-index: 1;
   }
