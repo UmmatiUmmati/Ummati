@@ -5,8 +5,7 @@
 </template>
 
 <script lang="ts">
-// TODO: This does not work yet.
-// See https://github.com/GoogleChrome/dialog-polyfill/issues/169
+// See https://github.com/GoogleChrome/dialog-polyfill
 // See https://keithjgrant.com/posts/2018/meet-the-new-dialog-element/
 import Vue from "vue";
 import "dialog-polyfill/dialog-polyfill.js";
