@@ -20,6 +20,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Timer from "@/framework/Timer";
+import { unregister } from "register-service-worker";
 
 type Move = "content" | "sidebar" | "both";
 type Side = "left" | "right";
@@ -104,8 +105,7 @@ export default Vue.extend({
       if (this.move === "both") {
         return {
           ...style,
-          transform: this.transformString,
-          "transition-duration": this.transitionDurationString
+          transform: this.transformString
         };
       }
       return style;
@@ -116,21 +116,18 @@ export default Vue.extend({
       };
       if (this.move === "sidebar") {
         style.transform = this.sidebarTransformString;
-        style["transition-duration"] = this.transitionDurationString;
       }
       return style;
     },
     sidebarContentStyle(): any {
       return {
-        opacity: Math.abs(this.translateX) / this.width,
-        "transition-duration": this.transitionDurationString
+        opacity: Math.abs(this.translateX) / this.width
       };
     },
     contentStyle(): any {
       if (this.move === "content") {
         return {
-          transform: this.transformString,
-          "transition-duration": this.transitionDurationString
+          transform: this.transformString
         };
       }
       return undefined;
@@ -149,9 +146,6 @@ export default Vue.extend({
         return "";
       }
       return `translateX(${this.translateX}px)`;
-    },
-    transitionDurationString(): string {
-      return `${this.duration}ms`;
     },
     orientation(): number {
       return this.side === "right" ? -1 : 1;
@@ -418,6 +412,7 @@ export default Vue.extend({
 
   &.flyout-opening {
     .flyout-content {
+      transition-duration: var(--flyout-transition-duration);
       transition-property: transform;
       transition-timing-function: ease(out-quint);
     }
@@ -425,6 +420,7 @@ export default Vue.extend({
 
   &.flyout-closing {
     .flyout-content {
+      transition-duration: var(--flyout-transition-duration);
       transition-property: transform;
       transition-timing-function: ease(in-quint);
     }
@@ -455,6 +451,7 @@ export default Vue.extend({
 
   &.flyout-opening {
     .flyout-sidebar {
+      transition-duration: var(--flyout-transition-duration);
       transition-property: transform;
       transition-timing-function: ease(out-quint);
     }
@@ -462,6 +459,7 @@ export default Vue.extend({
 
   &.flyout-closing {
     .flyout-sidebar {
+      transition-duration: var(--flyout-transition-duration);
       transition-property: transform;
       transition-timing-function: ease(in-quint);
     }
@@ -469,7 +467,7 @@ export default Vue.extend({
 }
 
 .flyout-move-both {
-  .flyout {
+  &.flyout {
     will-change: transform;
   }
 
@@ -486,14 +484,16 @@ export default Vue.extend({
   }
 
   &.flyout-opening {
-    .flyout {
+    &.flyout {
+      transition-duration: var(--flyout-transition-duration);
       transition-property: transform;
       transition-timing-function: ease(out-quint);
     }
   }
 
   &.flyout-closing {
-    .flyout {
+    &.flyout {
+      transition-duration: var(--flyout-transition-duration);
       transition-property: transform;
       transition-timing-function: ease(in-quint);
     }
@@ -514,6 +514,7 @@ export default Vue.extend({
   }
 
   .flyout-sidebar-content {
+    transition-duration: var(--flyout-transition-duration);
     transition-property: opacity;
     transition-timing-function: ease(out-quint);
   }
@@ -533,6 +534,7 @@ export default Vue.extend({
   }
 
   .flyout-sidebar-content {
+    transition-duration: var(--flyout-transition-duration);
     transition-property: opacity;
     transition-timing-function: ease(in-quint);
   }
