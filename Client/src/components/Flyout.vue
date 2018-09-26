@@ -36,6 +36,10 @@ export default Vue.extend({
       default: "both",
       type: String as () => Move
     },
+    overlayOpacity: {
+      default: 0.1,
+      type: Number
+    },
     // Show the flyout on the left or the right hand side.
     side: {
       default: "right",
@@ -91,13 +95,20 @@ export default Vue.extend({
       return classes;
     },
     flyoutStyle(): any {
+      const opacity = Math.abs(this.translateX) / this.width;
+      const style: any = {
+        "--flyout-overlay-opacity": opacity * this.overlayOpacity,
+        "--flyout-sidebar-content-opacity": opacity,
+        "--flyout-transition-duration": `${this.duration}ms`
+      };
       if (this.move === "both") {
         return {
+          ...style,
           transform: this.transformString,
           "transition-duration": this.transitionDurationString
         };
       }
-      return undefined;
+      return style;
     },
     sidebarStyle(): any {
       let style: any = {
@@ -345,7 +356,7 @@ export default Vue.extend({
 <style lang="scss">
 .flyout {
   --flyout-content-background-colour: var(--global-background-colour);
-  --flyout-sidebar-background-colour: var(--global-background-colour);
+  --flyout-sidebar-background-colour: var(--global-primary-colour);
 }
 
 .flyout-content {
@@ -353,6 +364,20 @@ export default Vue.extend({
   background-color: var(--flyout-content-background-colour);
   min-height: 100vh;
   position: relative;
+}
+
+.flyout-content:before {
+  content: "";
+  background-color: rgb(0, 0, 0);
+  bottom: 0;
+  display: block;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  will-change: opacity;
+  visibility: hidden;
+  z-index: 99;
 }
 
 .flyout-sidebar {
@@ -476,6 +501,14 @@ export default Vue.extend({
 }
 
 .flyout-opening {
+  .flyout-content:before {
+    opacity: var(--flyout-overlay-opacity);
+    transition-duration: var(--flyout-transition-duration);
+    transition-property: opacity;
+    transition-timing-function: ease(out-quint);
+    visibility: visible;
+  }
+
   .flyout-sidebar {
     visibility: visible;
   }
@@ -487,6 +520,14 @@ export default Vue.extend({
 }
 
 .flyout-closing {
+  .flyout-content:before {
+    opacity: var(--flyout-overlay-opacity);
+    transition-duration: var(--flyout-transition-duration);
+    transition-property: opacity;
+    transition-timing-function: ease(in-quint);
+    visibility: visible;
+  }
+
   .flyout-sidebar {
     visibility: visible;
   }
@@ -506,34 +547,13 @@ export default Vue.extend({
     overflow: hidden;
   }
 
+  .flyout-content:before {
+    opacity: var(--flyout-overlay-opacity);
+    visibility: visible;
+  }
+
   .flyout-sidebar {
     visibility: visible;
   }
 }
-
-// .flyout-content:before {
-// content: "";
-// display: block;
-// // background-color: rgba(0, 0, 0, 0);
-// }
-// .flyout-opening {
-// .flyout-content:before {
-// // background-color: rgba(0, 0, 0, 0.5);
-// transition: background-color 0.5s ease(out-quint);
-// }
-// }
-// .flyout-closing {
-// .flyout-content:before {
-// // background-color: rgba(0, 0, 0, 0);
-// transition: background-color 0.5s ease(in-quint);
-// }
-// }
-// .flyout-open .flyout-content:before {
-// position: absolute;
-// top: 0;
-// bottom: 0;
-// width: 100%;
-// background-color: rgba(0, 0, 0, 0.5);
-// z-index: 99;
-// }
 </style>
