@@ -1,7 +1,9 @@
 <template>
   <div :class="flyoutClass" :style="flyoutStyle" class="flyout">
     <div :style="sidebarStyle" class="flyout-sidebar">
-      <slot name="sidebar"/>
+      <div :style="sidebarContentStyle" class="flyout-sidebar-content">
+        <slot name="sidebar"/>
+      </div>
     </div>
     <div :style="contentStyle"
          class="flyout-content"
@@ -106,6 +108,12 @@ export default Vue.extend({
         style["transition-duration"] = this.transitionDurationString;
       }
       return style;
+    },
+    sidebarContentStyle(): any {
+      return {
+        opacity: Math.abs(this.translateX) / this.width,
+        "transition-duration": this.transitionDurationString
+      };
     },
     contentStyle(): any {
       if (this.move === "content") {
@@ -357,6 +365,10 @@ export default Vue.extend({
   visibility: hidden;
 }
 
+.flyout-sidebar-content {
+  will-change: opacity;
+}
+
 .flyout-left {
   .flyout-sidebar {
     left: 0;
@@ -467,11 +479,21 @@ export default Vue.extend({
   .flyout-sidebar {
     visibility: visible;
   }
+
+  .flyout-sidebar-content {
+    transition-property: opacity;
+    transition-timing-function: ease(out-quint);
+  }
 }
 
 .flyout-closing {
   .flyout-sidebar {
     visibility: visible;
+  }
+
+  .flyout-sidebar-content {
+    transition-property: opacity;
+    transition-timing-function: ease(in-quint);
   }
 }
 
