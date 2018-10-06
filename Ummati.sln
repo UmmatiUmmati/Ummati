@@ -1,0 +1,44 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F316174B-045B-4DC0-9097-8CE746A8BBB0}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		MinimumRecommendedRulesWithStyleCop.ruleset = MinimumRecommendedRulesWithStyleCop.ruleset
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{D37BD4B2-A87B-4FA1-A1E0-01F1CAD19F0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6F3F861E-CB16-49D3-91E6-FAF548BA4D0A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{DC7FDD72-F9C9-42E9-90CC-468BDD9A5CC2}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ummati", "Source\Ummati\Ummati.csproj", "{8A4A2DA7-6A99-4DCE-A99E-072B5BBD2C83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A4A2DA7-6A99-4DCE-A99E-072B5BBD2C83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A4A2DA7-6A99-4DCE-A99E-072B5BBD2C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A4A2DA7-6A99-4DCE-A99E-072B5BBD2C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A4A2DA7-6A99-4DCE-A99E-072B5BBD2C83}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A4A2DA7-6A99-4DCE-A99E-072B5BBD2C83} = {D37BD4B2-A87B-4FA1-A1E0-01F1CAD19F0D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BCEA536-0EA4-4EC0-B121-7B83926F8514}
+	EndGlobalSection
+EndGlobal

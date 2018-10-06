@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Build">
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <TieredCompilation>true</TieredCompilation>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- Disable publishing of a web.config file for IIS when calling dotnet publish. -->
+    <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+    <UserSecretsId>Ummati-38135a97-e8f6-4caf-8089-2ab8b4529634</UserSecretsId>
+    <CodeAnalysisRuleSet>../../MinimumRecommendedRulesWithStyleCop.ruleset</CodeAnalysisRuleSet>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
+    <Product>Ummati</Product>
+    <Description>TODO</Description>
+    <Authors>Ummati</Authors>
+    <Company>Ummati</Company>
+    <Copyright>Copyright © Ummati 2019</Copyright>
+    <DockerTargetOS>Linux</DockerTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup Label="Package References">
+    <PackageReference Include="Boxed.AspNetCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1916590" />
+    <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="2.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.1.2" />
+    <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.1" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.0.0" />
+    <PackageReference Include="Serilog.Exceptions" Version="4.1.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="2.6.1" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="2.5.2" Condition="'$(ApplicationInsights)' == 'true'" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" Version="1.1.0-beta009" />
+  </ItemGroup>
+
+</Project>

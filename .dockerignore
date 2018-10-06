@@ -1,0 +1,12 @@
+.git
+
+**/.vs
+**/.vscode
+**/bin
+**/obj
+**/dist
+**/.toolstarget
+**/node_modules
+
+**/.dockerignore
+**/.gitignore
