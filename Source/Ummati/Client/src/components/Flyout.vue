@@ -193,7 +193,7 @@ export default Vue.extend({
       this.opening = true;
       this.isOpen = true;
       if (document) {
-        document.documentElement.classList.add("flyout-open");
+        document.documentElement!.classList.add("flyout-open");
       }
 
       await Timer.delay(this.duration + 50);
@@ -215,7 +215,7 @@ export default Vue.extend({
       await Timer.delay(this.duration + 50);
 
       if (document) {
-        document.documentElement.classList.remove("flyout-open");
+        document.documentElement!.classList.remove("flyout-open");
       }
       this.translateX = 0;
       this.closing = false;

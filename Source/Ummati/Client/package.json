@@ -27,6 +27,7 @@
   "devDependencies": {
     "@gfx/zopfli": "^1.0.8",
     "@types/jest": "^23.1.4",
+    "@types/node": "^10.11.4",
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-plugin-e2e-cypress": "^3.0.1",
     "@vue/cli-plugin-eslint": "^3.0.1",
