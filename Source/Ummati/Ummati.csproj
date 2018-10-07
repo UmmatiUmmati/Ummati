@@ -9,7 +9,13 @@
     <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
     <UserSecretsId>Ummati-38135a97-e8f6-4caf-8089-2ab8b4529634</UserSecretsId>
     <CodeAnalysisRuleSet>../../MinimumRecommendedRulesWithStyleCop.ruleset</CodeAnalysisRuleSet>
-    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Client">
+    <SpaRoot>Client\</SpaRoot>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
@@ -18,7 +24,6 @@
     <Authors>Ummati</Authors>
     <Company>Ummati</Company>
     <Copyright>Copyright © Ummati 2019</Copyright>
-    <DockerTargetOS>Linux</DockerTargetOS>
   </PropertyGroup>
 
   <ItemGroup Label="Package References">
