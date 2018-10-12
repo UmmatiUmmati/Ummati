@@ -26,7 +26,6 @@ var dockerPassword =
     null;
 
 var artifactsDirectory = Directory("./Artifacts");
-var dockerImageTags = new List<string>();
 
 Task("Clean")
     .Does(() =>
@@ -85,22 +84,14 @@ Task("DockerBuild")
     {
         foreach(var dockerfile in GetFiles("./**/Dockerfile"))
         {
-            var tags = new string[]
-            {
-                GetDockerTag(dockerServer, dockerImageName, "latest"),
-                GetDockerTag(dockerServer, dockerImageName, version)
-            };
-
             DockerBuild(
                 new DockerImageBuildSettings()
                 {
                     File = dockerfile.ToString(),
                     // Label = labels.ToArray(),
-                    Tag = tags
+                    Tag = GetDockerTags(dockerfile)
                 },
                 ".");
-
-            dockerImageTags.AddRange(tags);
         }
     });
 
@@ -114,21 +105,24 @@ Task("DockerPush")
     .IsDependentOn("DockerLogin")
     .Does(() =>
     {
-        foreach (var dockerImageTag in dockerImageTags)
+        foreach(var dockerfile in GetFiles("./**/Dockerfile"))
         {
-            try
+            foreach (var dockerImageTag in GetDockerTags(dockerfile))
             {
-                DockerPush(dockerImageTag);
-            }
-            catch (CakeException exception)
-            {
-                if (exception.Message.Contains("Process returned an error (exit code 1)."))
+                try
                 {
-                    Warning($"An image with the same tag '{dockerImageTag}' already exists.");
+                    DockerPush(dockerImageTag);
                 }
-                else
+                catch (CakeException exception)
                 {
-                    throw;
+                    if (exception.Message.Contains("Process returned an error (exit code 1)."))
+                    {
+                        Warning($"An image with the same tag '{dockerImageTag}' already exists.");
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
             }
         }
@@ -142,6 +136,15 @@ Task("DockerClean")
 
 Task("Default")
     .IsDependentOn("Test");
+
+public string[] GetDockerTags(FilePath dockerfileFilePath)
+{
+    return new string[]
+    {
+        GetDockerTag(dockerServer, dockerImageName, "latest"),
+        GetDockerTag(dockerServer, dockerImageName, version)
+    };
+}
 
 public string GetDockerTag(string dockerServer, string name, string version)
 {
