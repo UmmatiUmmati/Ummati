@@ -8,6 +8,11 @@ var version =
     TFBuild.IsRunningOnVSTS ? TFBuild.Environment.Build.Number :
     EnvironmentVariable("Version") != null ? EnvironmentVariable("Version") :
     "1.0.0";
+var branch =
+    HasArgument("Branch") ? Argument<string>("Branch") :
+    TFBuild.IsRunningOnVSTS ? TFBuild.Environment.Repository.Branch :
+    EnvironmentVariable("Branch") != null ? EnvironmentVariable("Branch") :
+    "master";
 var dockerImageName =
     HasArgument("DockerImageName") ? Argument<string>("DockerImageName") :
     EnvironmentVariable("DockerImageName") != null ? EnvironmentVariable("DockerImageName") :
@@ -82,13 +87,25 @@ Task("Test")
 Task("DockerBuild")
     .Does(() =>
     {
+        var labels = new string[]
+        {
+            $"org.opencontainers.image.created='{DateTimeOffset.UtcNow:o}'",
+            $"org.opencontainers.image.authors='https://github.com/orgs/Ummati-com/people'",
+            $"org.opencontainers.image.url='https://github.com/Ummati-com/Ummati'",
+            $"org.opencontainers.image.documentation='https://github.com/Ummati-com/Ummati'",
+            $"org.opencontainers.image.source='https://github.com/Ummati-com/Ummati'",
+            $"org.opencontainers.image.version='{version}'",
+            $"org.opencontainers.image.vendor='Ummati'",
+            $"org.opencontainers.image.title='Ummati'",
+            $"org.opencontainers.image.description='TODO'"
+        };
         foreach(var dockerfile in GetFiles("./**/Dockerfile"))
         {
             DockerBuild(
                 new DockerImageBuildSettings()
                 {
                     File = dockerfile.ToString(),
-                    // Label = labels.ToArray(),
+                    Label = labels,
                     Tag = GetDockerTags(dockerfile)
                 },
                 ".");
@@ -141,22 +158,25 @@ public string[] GetDockerTags(FilePath dockerfileFilePath)
 {
     return new string[]
     {
-        GetDockerTag(dockerServer, dockerImageName, "latest"),
-        GetDockerTag(dockerServer, dockerImageName, version)
+        GetDockerTag(dockerServer, dockerImageName, branch),
+        GetDockerTag(dockerServer, dockerImageName, branch, version)
     };
 }
 
-public string GetDockerTag(string dockerServer, string name, string version)
+public static string GetDockerTag(string dockerServer, string name, string branch = "master", string version = "latest")
 {
-    var tag = name;
+    var tag = $"{name}:{version}";
+
     if (!string.IsNullOrEmpty(dockerServer))
     {
-        tag = dockerServer.TrimEnd('/') + "/" + tag;
+        tag = $"{dockerServer.TrimEnd('/')}/{tag}";
     }
-    if (!string.IsNullOrEmpty(version))
+
+    if (!string.Equals(branch, "master", StringComparison.Ordinal))
     {
-        tag = tag + ":" + version;
+        tag = $"{tag}-{branch}";
     }
+
     return tag;
 }
 
