@@ -145,7 +145,7 @@ Task("DockerPush")
         }
     });
 
-Task("DockerClean")
+Task("DockerRmi")
     .Does(() =>
     {
         DockerRmi(dockerImageName);
@@ -163,7 +163,7 @@ public string[] GetDockerTags(FilePath dockerfileFilePath)
     };
 }
 
-public static string GetDockerTag(string dockerServer, string name, string branch = "master", string version = "latest")
+public static string GetDockerTag(string dockerServer, string name, string branch, string version = "latest")
 {
     var tag = $"{name}:{version}";
 

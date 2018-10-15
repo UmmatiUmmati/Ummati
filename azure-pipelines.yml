@@ -1,11 +1,32 @@
-name: 1.0.$(buildId)
+name: 1.0.$(BuildId)-$(SourceBranchName)
 
-pool:
-  vmImage: 'Ubuntu 16.04'
+jobs:
+- job: Dotnet
+  displayName: 'dotnet restore, build and test'
 
-variables:
-  imageName: 'your-container-image-name:$(build.buildId)'
+  pool:
+    vmImage: 'Ubuntu 16.04'
 
-steps:
-- script: docker build -f Dockerfile -t $(imageName) .
-  displayName: 'docker build'
+  steps:
+  - bash: ./build.sh --target Restore
+    displayName: 'dotnet restore'
+  - bash: ./build.sh --target Build --exclusive
+    displayName: 'dotnet build'
+  - bash: ./build.sh --target Test --exclusive
+    displayName: 'dotnet test'
+
+- job: Docker
+  displayName: 'docker build, login, push and rmi'
+
+  pool:
+    vmImage: 'Ubuntu 16.04'
+
+  steps:
+  - bash: ./build.sh --target DockerBuild
+    displayName: 'docker build'
+  - bash: ./build.sh --target DockerLogin --exclusive
+    displayName: 'docker login'
+  - bash: ./build.sh --target DockerPush --exclusive
+    displayName: 'docker push'
+  - bash: ./build.sh --target DockerRmi
+    displayName: 'docker rmi'
