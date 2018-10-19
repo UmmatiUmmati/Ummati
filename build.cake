@@ -29,13 +29,15 @@ var dockerPassword =
     HasArgument("DockerPassword") ? Argument<string>("DockerPassword") :
     EnvironmentVariable("DockerPassword") != null ? EnvironmentVariable("DockerPassword") :
     null;
-
-var artifactsDirectory = Directory("./Artifacts");
+var artefactsDirectory =
+    HasArgument("ArtefactsDirectory") ? Directory(Argument<string>("ArtefactsDirectory")) :
+    EnvironmentVariable("ArtefactsDirectory") != null ? Directory(EnvironmentVariable("ArtefactsDirectory")) :
+    Directory("./Artefacts");
 
 Task("Clean")
     .Does(() =>
     {
-        CleanDirectory(artifactsDirectory);
+        CleanDirectory(artefactsDirectory);
         DeleteDirectories(GetDirectories("**/bin"), new DeleteDirectorySettings() { Force = true, Recursive = true });
         DeleteDirectories(GetDirectories("**/obj"), new DeleteDirectorySettings() { Force = true, Recursive = true });
         DeleteDirectories(GetDirectories("**/Ummati/Client/dist"), new DeleteDirectorySettings() { Force = true, Recursive = true });
@@ -52,17 +54,14 @@ Task("Restore")
     .IsDependentOn("Restore")
     .Does(() =>
     {
-        foreach(var project in GetFiles("./**/*.csproj"))
-        {
-            DotNetCoreBuild(
-                project.GetDirectory().FullPath,
-                new DotNetCoreBuildSettings()
-                {
-                    Configuration = "Release",
-                    MSBuildSettings = new DotNetCoreMSBuildSettings().SetVersion(version),
-                    NoRestore = true
-                });
-        }
+        DotNetCoreBuild(
+            ".",
+            new DotNetCoreBuildSettings()
+            {
+                Configuration = "Release",
+                MSBuildSettings = new DotNetCoreMSBuildSettings().SetVersion(version),
+                NoRestore = true
+            });
     });
 
 Task("Test")
@@ -79,7 +78,7 @@ Task("Test")
                     Logger = $"trx;LogFileName={project.GetFilenameWithoutExtension()}.trx",
                     NoBuild = true,
                     NoRestore = true,
-                    ResultsDirectory = artifactsDirectory
+                    ResultsDirectory = artefactsDirectory
                 });
         }
     });
