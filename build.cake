@@ -1,4 +1,5 @@
 #addin "Cake.Docker"
+#addin "Cake.Npm"
 
 using System.Collections.Generic;
 
@@ -34,13 +35,24 @@ var artefactsDirectory =
     EnvironmentVariable("ArtefactsDirectory") != null ? Directory(EnvironmentVariable("ArtefactsDirectory")) :
     Directory("./Artefacts");
 
+var projectDirectory = GetFiles("**/Ummati.csproj").First().GetDirectory();
+var clientDirectory = projectDirectory.Combine(new DirectoryPath("./Client"));
+var distDirectory = clientDirectory.Combine(new DirectoryPath("./dist"));
+
 Task("Clean")
     .Does(() =>
     {
         CleanDirectory(artefactsDirectory);
+        Information($"Cleaned {artefactsDirectory}");
+
         DeleteDirectories(GetDirectories("**/bin"), new DeleteDirectorySettings() { Force = true, Recursive = true });
+        Information($"Cleaned {string.Join(Environment.NewLine, GetDirectories("**/bin"))}");
+
         DeleteDirectories(GetDirectories("**/obj"), new DeleteDirectorySettings() { Force = true, Recursive = true });
-        DeleteDirectories(GetDirectories("**/Ummati/Client/dist"), new DeleteDirectorySettings() { Force = true, Recursive = true });
+        Information($"Cleaned {string.Join(Environment.NewLine, GetDirectories("**/obj"))}");
+
+        CleanDirectory(distDirectory);
+        Information($"Cleaned {distDirectory}");
     });
 
 Task("Restore")
@@ -48,6 +60,7 @@ Task("Restore")
     .Does(() =>
     {
         DotNetCoreRestore();
+        NpmInstall(x => x.FromPath(clientDirectory));
     });
 
  Task("Build")
@@ -62,6 +75,9 @@ Task("Restore")
                 MSBuildSettings = new DotNetCoreMSBuildSettings().SetVersion(version),
                 NoRestore = true
             });
+        NpmRunScript(
+            "build:report",
+            x => x.FromPath(clientDirectory));
     });
 
 Task("Test")

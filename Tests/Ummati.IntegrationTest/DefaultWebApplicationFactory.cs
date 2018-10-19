@@ -1,6 +1,7 @@
 namespace Ummati.IntegrationTest
 {
     using System;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Net.Http;
@@ -16,11 +17,12 @@ namespace Ummati.IntegrationTest
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             base.ConfigureWebHost(builder);
-            var directory = GetDirectoryPath(new DirectoryInfo(Directory.GetCurrentDirectory()));
-            builder.UseWebRoot(Path.Combine(directory.FullName, "Client", "dist"));
+            var projectDirectoryPath = GetProjectDirectory(new DirectoryInfo(Directory.GetCurrentDirectory())).FullName;
+            var distDirectoryPath = Path.Combine(projectDirectoryPath, "Client", "dist");
+            builder.UseWebRoot(distDirectoryPath);
         }
 
-        private static DirectoryInfo GetDirectoryPath(DirectoryInfo directory)
+        private static DirectoryInfo GetProjectDirectory(DirectoryInfo directory)
         {
             var file = directory
                 .GetFiles("*", SearchOption.AllDirectories)
@@ -28,7 +30,7 @@ namespace Ummati.IntegrationTest
                 .FirstOrDefault();
             if (file == null)
             {
-                return GetDirectoryPath(directory.Parent);
+                return GetProjectDirectory(directory.Parent);
             }
 
             return file.Directory;
