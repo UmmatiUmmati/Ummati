@@ -12,7 +12,7 @@ jobs:
     displayName: 'dotnet restore'
   - bash: ./build.sh --target Build --exclusive
     displayName: 'dotnet build'
-  - bash: ./build.sh --target Test --exclusive --ArtefactsDirectory $(ArtifactStagingDirectory)
+  - bash: ./build.sh --target Test --exclusive --ArtefactsDirectory $(Build.ArtifactStagingDirectory)
     displayName: 'dotnet test'
 
 - job: Docker
@@ -24,7 +24,7 @@ jobs:
   steps:
   - bash: ./build.sh --target DockerBuild
     displayName: 'docker build'
-  - bash: ./build.sh --target DockerLogin --exclusive
+  - bash: ./build.sh --target DockerLogin --exclusive --DockerServer $(DockerServer) --DockerUsername $(DockerUsername) --DockerPassword $(DockerPassword)
     displayName: 'docker login'
   - bash: ./build.sh --target DockerPush --exclusive
     displayName: 'docker push'
