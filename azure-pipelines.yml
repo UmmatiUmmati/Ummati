@@ -12,8 +12,12 @@ jobs:
     displayName: 'dotnet restore'
   - bash: ./build.sh --target Build --exclusive
     displayName: 'dotnet build'
-  - bash: ./build.sh --target Test --exclusive --ArtefactsDirectory='$(Build.ArtifactStagingDirectory)'
+  - bash: ./build.sh --target Test --exclusive
     displayName: 'dotnet test'
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'VSTest'
+      testResultsFiles: '**/*.trx'
 
 - job: Docker
   displayName: 'docker build, login, push and rmi'
