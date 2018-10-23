@@ -131,6 +131,15 @@ Task("DockerLogin")
     .Does(() =>
     {
         DockerLogin(dockerUsername, dockerPassword, dockerServer);
+        // PasswordStdin - See https://github.com/MihaMarkic/Cake.Docker/issues/41
+        // DockerLogin(
+        //     new DockerRegistryLoginSettings()
+        //     {
+        //         Username = dockerUsername,
+        //         Password = dockerPassword,
+        //         PasswordStdin = true
+        //     },
+        //     dockerServer);
     });
 
 Task("DockerPush")
