@@ -56,6 +56,7 @@ export default Vue.extend({
 
 html {
   background: var(--global-background-colour);
+  caret-color: var(--global-primary-colour);
   color: var(--global-text-colour);
 }
 
@@ -64,9 +65,19 @@ html {
   color: var(--global-text-colour);
 }
 
+::selection { 
+  color: #fff; 
+  background: var(--global-text-colour);
+}
+
 .high-contrast-theme {
   background: var(--global-background-colour);
   color: var(--global-text-colour);
+  
+  ::selection { 
+    color: var(--global-background-colour);
+    background: var(--global-text-colour);
+  }
 }
 
 .theme-transition {
