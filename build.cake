@@ -90,6 +90,7 @@ Task("Test")
                 project.ToString(),
                 new DotNetCoreTestSettings()
                 {
+                    ArgumentCustomization = x => x.Append("--collect:\"Code Coverage\""),
                     Configuration = "Release",
                     Logger = $"trx;LogFileName={project.GetFilenameWithoutExtension()}.trx",
                     NoBuild = true,
