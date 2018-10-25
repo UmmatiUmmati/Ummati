@@ -8,10 +8,10 @@
     "build:report": "vue-cli-service build --modern --report --report-json",
     "lint": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix",
+    "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit",
     "test:unit:watch": "vue-cli-service test:unit --watch",
-    "test:unit:coverage": "vue-cli-service test:unit --coverage",
-    "test:e2e": "vue-cli-service test:e2e"
+    "test:unit:coverage": "vue-cli-service test:unit --coverage"
   },
   "dependencies": {
     "bootstrap": "^4.1.3",
