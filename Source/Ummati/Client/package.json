@@ -30,7 +30,7 @@
     "@types/jest": "^23.3.8",
     "@types/node": "^10.12.1",
     "@vue/cli-plugin-babel": "^3.0.5",
-    "@vue/cli-plugin-e2e-cypress": "^3.0.3",
+    "@vue/cli-plugin-e2e-cypress": "^3.1.0",
     "@vue/cli-plugin-eslint": "^3.0.5",
     "@vue/cli-plugin-pwa": "^3.0.5",
     "@vue/cli-plugin-typescript": "^3.0.5",
