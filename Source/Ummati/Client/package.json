@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "vue-cli-service serve",
-    "build": "vue-cli-service build --modern",
-    "build:report": "vue-cli-service build --modern --report --report-json",
+    "build": "vue-cli-service build --modern --no-unsafe-inline",
+    "build:report": "vue-cli-service build --modern --no-unsafe-inline --report --report-json",
     "lint": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix",
     "test:e2e": "vue-cli-service test:e2e",
