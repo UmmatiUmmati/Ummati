@@ -27,7 +27,6 @@
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^3.0.1",
     "@gfx/zopfli": "^1.0.9",
-<<<<<<< HEAD
     "@types/jest": "^23.3.9",
     "@types/node": "^10.12.1",
     "@vue/cli-plugin-babel": "^3.1.0",
@@ -39,19 +38,6 @@
     "@vue/cli-service": "^3.1.1",
     "@vue/eslint-config-prettier": "^4.0.0",
     "@vue/eslint-config-typescript": "^3.1.0",
-=======
-    "@types/jest": "^23.3.8",
-    "@types/node": "^10.12.1",
-    "@vue/cli-plugin-babel": "^3.0.5",
-    "@vue/cli-plugin-e2e-cypress": "^3.0.3",
-    "@vue/cli-plugin-eslint": "^3.0.5",
-    "@vue/cli-plugin-pwa": "^3.0.5",
-    "@vue/cli-plugin-typescript": "^3.0.5",
-    "@vue/cli-plugin-unit-jest": "^3.0.5",
-    "@vue/cli-service": "^3.0.5",
-    "@vue/eslint-config-prettier": "^3.0.5",
-    "@vue/eslint-config-typescript": "^3.0.5",
->>>>>>> af23904e94bbf1db382522a1abe079bfeb2c2fb4
     "@vue/test-utils": "^1.0.0-beta.25",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
@@ -59,21 +45,12 @@
     "eslint-plugin-vue": "^5.0.0-0",
     "brotli-webpack-plugin": "^1.0.0",
     "compression-webpack-plugin": "^2.0.0",
-<<<<<<< HEAD
     "lint-staged": "^8.0.3",
     "node-sass": "^4.9.4",
     "sass-loader": "^7.1.0",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
     "ts-jest": "^23.10.4",
-=======
-    "lint-staged": "^8.0.2",
-    "node-sass": "^4.9.4",
-    "sass-loader": "^7.0.1",
-    "stylelint-config-prettier": "^4.0.0",
-    "stylelint-config-standard": "^18.2.0",
-    "ts-jest": "^23.10.1",
->>>>>>> af23904e94bbf1db382522a1abe079bfeb2c2fb4
     "typescript": "^3.1.4",
     "vue-template-compiler": "^2.5.17"
   },
