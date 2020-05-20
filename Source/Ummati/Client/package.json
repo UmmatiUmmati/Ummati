@@ -28,7 +28,7 @@
     "@cypress/webpack-preprocessor": "^3.0.1",
     "@gfx/zopfli": "^1.0.9",
     "@types/jest": "^23.3.9",
-    "@types/node": "^10.12.1",
+    "@types/node": "^14.0.4",
     "@vue/cli-plugin-babel": "^3.1.0",
     "@vue/cli-plugin-e2e-cypress": "^3.1.0",
     "@vue/cli-plugin-eslint": "^3.1.1",
